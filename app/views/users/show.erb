@@ -21,15 +21,21 @@
   </div>
   <div class="">
     <% if @user.workouts.count > 0 %>
-      <% @user.workouts.each do |workout| %>
-      <p><%= workout.name %> <a href="/workouts/show">View</a> <a href="/workouts/edit">Edit</a></p>
-      <% end %>
+      <ol>
+        <% @user.workouts.each do |workout| %>
+        <li>
+          <%= workout.name %> <a href="/workouts/<%= workout.id %>">View</a> <a href="/workouts/<%= workout.id %>/edit">Edit</a>
+        </li>
+        <% end %>
+      </ol>
     <% else %>
     <p>You have not created any workouts! <a href="/workouts/new">Click Here</a> to get started.</p>
     <% end %>
   </div>
 </div>
 
-
+<div class="">
+  <p style="font-size: 80%">Currently logged in as <%= current_user.username %>. Not you? <a href="/logout">Log out</a>
+</div>
 
 <% end %>
