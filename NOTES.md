@@ -1,5 +1,5 @@
 
--MODELS
+-MODELS-
 
 Users
 has_many :workouts
@@ -39,3 +39,24 @@ Exercise_Sets
 belong_to :exercise
   - volume
   - reps
+
+
+-CONTROLLERS & VIEWS-
+
+Application
+  - Main Index Page
+Authentication
+  - Login
+  - Signup
+Users
+  - User Page
+Workouts
+  - View Workout
+  - Create Workout
+  - Edit Workout
+  - Delete Workout
+Exercises
+  - View Exercise
+  - Create Exercise
+  - Edit Exercise
+  - Delete Exercise
