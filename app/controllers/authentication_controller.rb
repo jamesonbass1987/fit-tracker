@@ -10,14 +10,15 @@ class AuthenticationController < ApplicationController
   end
 
   post '/signup' do
+
     #check for any empty fields
     if nil_submission?
       @signup_error = true
-      erb :'/signup'
+      erb :"/users/signup"
     #check for any existing users that match that username or email
     elsif user_exists?
       @signup_duplication_error = true
-      erb :'signup'
+      erb :"/users/signup"
     #create user if all conditions are met
     else
       user = User.create(:username => params["username"], :first_name => params["first_name"], :last_name => params["last_name"], :email => params["email"], :password => params["password"])

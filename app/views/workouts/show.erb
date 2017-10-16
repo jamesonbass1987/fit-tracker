@@ -1,11 +1,3 @@
-<% if !@authorized_user%>
-  <div>
-    Something went wrong, or you are not authorized to view this workout. To return to your profile, <a href="/users/<%= current_user.username %>">click here</a>.
-  </div>
-<% end %>
-
-<% if @authorized_user%>
-
   <div class="">
     <h1>Workout: <%= @workout.name %></h1>
   </div>
@@ -20,6 +12,9 @@
       <% @workout.exercises.each do |exercise| %>
         <div class="">
           <p><b>Exercise:</b> <%= exercise.name %></p>
+            <% if exercise.user_id == current_user.id %>
+              <p><a href="/exercises/<%= exercise.id %>/edit">Edit this exercise</a>.</p>
+            <% end %>
           <p>Body Part: <%= exercise.body_part %></p>
           <p>Weight Type: <%= exercise.weight_type %></p>
         </div>
@@ -45,4 +40,3 @@
 <div class="">
   <small>Currently logged in as <%= current_user.username %>. Not you? <a href="/logout">Log out</a>, or <a href="/users/<%= current_user.username %>">click here</a> to return to your profile.</small>
 </div>
-<% end %>

@@ -10,39 +10,57 @@
     <p>Description: <textarea name="description" rows="6" cols="50"></textarea> </p>
     <h3>Exercises:</h3>
     <h4>Legs</h4>
+    <br>
       <% @legs.each do |exercise| %>
         <div class="">
-          <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+          <p><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %></p>
+          <p><%= exercise.description %></p>
+          <p>Weight Type: <%= exercise.weight_type %></p>
         </div>
       <% end %>
     <h4>Chest</h4>
+    <br>
       <% @chest.each do |exercise| %>
         <div class="">
-          <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+          <p><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %></p>
+          <p><%= exercise.description %></p>
+          <p>Weight Type: <%= exercise.weight_type %></p>
         </div>
       <% end %>
     <h4>Shoulders</h4>
+    <br>
       <% @shoulders.each do |exercise| %>
         <div class="">
-          <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+          <p><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %></p>
+          <p><%= exercise.description %></p>
+          <p>Weight Type: <%= exercise.weight_type %></p>
         </div>
       <% end %>
     <h4>Arms</h4>
+    <br>
       <% @arms.each do |exercise| %>
         <div class="">
-          <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+          <p><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %></p>
+          <p><%= exercise.description %></p>
+          <p>Weight Type: <%= exercise.weight_type %></p>
         </div>
       <% end %>
     <h4>Back</h4>
+    <br>
       <% @back.each do |exercise| %>
         <div class="">
-          <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+          <p><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %></p>
+          <p><%= exercise.description %></p>
+          <p>Weight Type: <%= exercise.weight_type %></p>
         </div>
       <% end %>
     <h4>Abdominals</h4>
+    <br>
     <% @abdominals.each do |exercise| %>
       <div class="">
-        <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+        <p><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %></p>
+        <p><%= exercise.description %></p>
+        <p>Weight Type: <%= exercise.weight_type %></p>
       </div>
     <% end %>
 
@@ -52,4 +70,8 @@
 
     <input type="submit"value="Create">
   </form>
+</div>
+
+<div class="">
+  <small>Currently logged in as <%= current_user.username %>. Not you? <a href="/logout">Log out</a>, or <a href="/users/<%= current_user.username %>">click here</a> to return to your profile.</small>
 </div>

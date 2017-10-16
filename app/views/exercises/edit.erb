@@ -1,0 +1,53 @@
+<div class="">
+  <h1>Edit Exercise</h1>
+</div>
+
+<% if @exercise_edit_error%>
+  <div class="login_signup_error">
+    There was an error editing your exercise. There may be another exercise with that name, or one of the fields was left blank. Please check your information and resubmit.
+  </div>
+<% end %>
+
+<div class="">
+  <form class="" action="/exercises/<%= @exercise.id %>" method="post">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+    <p>Name: <input type="text" name="name" value="<%= @exercise.name %>"></p>
+    <p>Exercise Description:</p><textarea name="description" rows="6" cols="50"><%= @exercise.description %></textarea>
+    <br><br>
+    <p>Weight Type:
+    <select name="weight_type">
+      <option value="Barbell" <%='selected' if @exercise.weight_type.include?('Barbell') %>>Barbell</option>
+      <option value="Dumbbell" <%='selected' if @exercise.weight_type.include?('Dumbbell') %>>Dumbbell</option>
+      <option value="Machine" <%='selected' if @exercise.weight_type.include?('Machine') %>>Machine</option>
+      <option value="Reps Only" <%='selected' if @exercise.weight_type.include?('Reps Only') %>>Reps Only</option>
+    </select>
+    </p>
+    <p>Body Part:
+      <select name="body_part">
+        <option value="Legs" <%='selected' if @exercise.weight_type.include?('Legs') %>>Legs</option>
+        <option value="Chest" <%='selected' if @exercise.weight_type.include?('Chest') %>>Chest</option>
+        <option value="Shoulders" <%='selected' if @exercise.weight_type.include?('Shoulders') %>>Shoulders</option>
+        <option value="Arms" <%='selected' if @exercise.weight_type.include?('Arms') %>>Arms</option>
+        <option value="Back" <%='selected' if @exercise.weight_type.include?('Back') %>>Back</option>
+        <option value="Abdominals" <%='selected' if @exercise.weight_type.include?('Abdominals') %>>Abdominals</option>
+      </select>
+    </p>
+    <input type="submit" value="Edit">
+  </form>
+</div>
+
+<br>
+<div class="">
+  <form class="" action="/exercises/<%= @exercise.id %>/delete" method="post">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete">
+  </form>
+</div>
+
+<div class="">
+  <p><a href="/exercises">Click here</a> to view all exercises.</p>
+</div>
+
+<div class="">
+  <small>Currently logged in as <%= current_user.username %>. Not you? <a href="/logout">Log out</a>, or <a href="/users/<%= current_user.username %>">click here</a> to return to your profile.</small>
+</div>

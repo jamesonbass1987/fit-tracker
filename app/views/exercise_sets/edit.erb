@@ -1,0 +1,33 @@
+<div class="">
+  <h1><%= @exercise.name %></h1>
+</div>
+
+<div class="">
+  <p>Weight Type: <%= @exercise.weight_type %></p>
+  <p>Body Part: <%= @exercise.body_part %></p>
+</div>
+
+<% if @sets.count == 0 %>
+<div class="">
+  <p>You currently have no sets added to this exercise. <a href="/exercises/<%= @exercise.id %>/sets/new">Click here</a> to get started.</p>
+</div>
+<% end %>
+
+<% if @sets.count > 0 %>
+  <table>
+    <tr>
+      <th>Set #</th>
+      <th>Weight</th>
+      <th>Reps</th>
+    </tr>
+    <% @sets.each do |set| %>
+      <% @num = 1 %>
+        <tr>
+          <td><%= @num %></td>
+          <td><%= set.weight %></td>
+          <td><%= set.reps %></td>
+        </tr>
+      <% @num += 1 %>
+    <% end %>
+  </table>
+<% end %>

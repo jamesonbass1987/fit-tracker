@@ -9,12 +9,12 @@ class WorkoutsController < ApplicationController
     logged_in_redirect_check
 
     #set instance variables based on exercise body part
-    @legs = Exercise.all.find_all { |exercise| exercise.body_part == "Legs"}
-    @chest = Exercise.all.find_all { |exercise| exercise.body_part == "Chest"}
-    @shoulders = Exercise.all.find_all { |exercise| exercise.body_part == "Shoulders"}
-    @arms = Exercise.all.find_all { |exercise| exercise.body_part == "Arms"}
-    @back = Exercise.all.find_all { |exercise| exercise.body_part == "Back"}
-    @abdominals = Exercise.all.find_all { |exercise| exercise.body_part == "Abdominals"}
+    @legs = Exercise.all.find_all { |exercise| exercise.body_part == "Legs" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
+    @chest = Exercise.all.find_all { |exercise| exercise.body_part == "Chest" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
+    @shoulders = Exercise.all.find_all { |exercise| exercise.body_part == "Shoulders" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
+    @arms = Exercise.all.find_all { |exercise| exercise.body_part == "Arms" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
+    @back = Exercise.all.find_all { |exercise| exercise.body_part == "Back" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
+    @abdominals = Exercise.all.find_all { |exercise| exercise.body_part == "Abdominals" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
 
     erb :"/workouts/create"
   end
@@ -22,7 +22,7 @@ class WorkoutsController < ApplicationController
   post '/workouts' do
     user = current_user
 
-    #check for blank name entry
+    #check for blank name entry or blank exercise entries
     if params[:name] == ""
       redirect to '/workouts/new'
     end
@@ -30,10 +30,12 @@ class WorkoutsController < ApplicationController
     #create new workout instance and save to DB
     workout = Workout.create(:name => params[:name], :description => params[:description])
 
-    #enumerate through selected exercises, adding them to workout
-    params[:exercise][:id].each do |exercise_id|
-      exercise = Exercise.find_by_id(exercise_id)
-      workout.exercises << exercise
+    #enumerate through selected exercises, if any, adding them to workout
+    if params.include?(:exercise)
+      params[:exercise][:id].each do |exercise_id|
+        exercise = Exercise.find_by_id(exercise_id)
+        workout.exercises << exercise
+      end
     end
 
     #save to user workouts
@@ -48,25 +50,27 @@ class WorkoutsController < ApplicationController
 
     #check to see if workout exists and belong to current user
     if @workout && @workout.user_id == current_user.id
-      @authorized_user = true
+      erb :"/workouts/show"
+    else
+      redirect to :"/workouts"
     end
 
-    erb :"/workouts/show"
+
   end
 
   get '/workouts/:id/edit' do
     logged_in_redirect_check
     @workout = Workout.find_by_id(params[:id])
 
-    if @workout && current_user.id == @workout.user_id
+    if !@workout.nil? && @workout && current_user.id == @workout.user_id
 
       #set instance variables based on exercise body part
-      @legs = Exercise.all.find_all { |exercise| exercise.body_part == "Legs"}
-      @chest = Exercise.all.find_all { |exercise| exercise.body_part == "Chest"}
-      @shoulders = Exercise.all.find_all { |exercise| exercise.body_part == "Shoulders"}
-      @arms = Exercise.all.find_all { |exercise| exercise.body_part == "Arms"}
-      @back = Exercise.all.find_all { |exercise| exercise.body_part == "Back"}
-      @abdominals = Exercise.all.find_all { |exercise| exercise.body_part == "Abdominals"}
+      @legs = Exercise.all.find_all { |exercise| exercise.body_part == "Legs" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
+      @chest = Exercise.all.find_all { |exercise| exercise.body_part == "Chest" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
+      @shoulders = Exercise.all.find_all { |exercise| exercise.body_part == "Shoulders" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
+      @arms = Exercise.all.find_all { |exercise| exercise.body_part == "Arms" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
+      @back = Exercise.all.find_all { |exercise| exercise.body_part == "Back" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
+      @abdominals = Exercise.all.find_all { |exercise| exercise.body_part == "Abdominals" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
 
       erb :"/workouts/edit"
     else
@@ -110,10 +114,9 @@ class WorkoutsController < ApplicationController
     #validate current user is owner of workout and logged in
     if current_user.id == workout.user_id && logged_in?
       workout.destroy
-      redirect to "/workouts"
-    else
-      redirect to "/workouts"
     end
+
+    redirect to "/workouts"
 
   end
 

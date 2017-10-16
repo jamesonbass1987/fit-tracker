@@ -7,11 +7,35 @@
 </div>
 
 <div class="">
+  <p>Body Part: <%= @exercise.body_part %></p>
+</div>
+
+<div class="">
   <p>Description: <%= @exercise.description %></p>
 </div>
 
 <% if @exercise.user_id == current_user.id %>
-<div class="">
-  <p><a href="/exercises/<%= @exercise.id %>/edit">Click Here</a> To Edit This Exercise</p>
-</div>
+  <div class="">
+    <form class="" action="/workouts/<%= @exercise.id %>/delete" method="post">
+      <input id="hidden" type="hidden" name="_method" value="delete">
+      <input type="submit" value="Delete">
+    </form>
+  </div>
+  <br>
+  <div class="">
+    <p><a href="/exercises/<%= @exercise.id %>/edit">Click here</a> to edit this exercise</p>
+  </div>
 <% end %>
+
+<div class="">
+  <p><a href="/exercises/new">Click here</a> to create an exercises.</p>
+</div>
+
+<div class="">
+  <p><a href="/exercises">Click here</a> to view all exercises.</p>
+</div>
+
+
+<div class="">
+  <small>Currently logged in as <%= current_user.username %>. Not you? <a href="/logout">Log out</a>, or <a href="/users/<%= current_user.username %>">click here</a> to return to your profile.</small>
+</div>

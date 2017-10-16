@@ -1,17 +1,44 @@
 <div class="">
   <h1>Create New Exercise</h1>
 </div>
+
+<% if @exercise_creation_error %>
+<div class="login_signup_error">
+  Either a field has been left blank, or an exercise with that name already exists. Please try creating a different exercise.
+</div>
+<% end %>
+
 <div class="">
-  <form class="" action="index.html" method="post">
-    <p>Exercise Name:<input type="text" name="name" value=""></p>
-    <p>Exercise Description:<input type="text" name="name" value=""></p>
+  <form class="" action="/exercises" method="post">
+    <p>Exercise Name: <br></br> <input type="text" name="name" value=""> <br> </p>
+    <p>Exercise Description:</p><textarea name="description" rows="6" cols="50"></textarea>
+    <br><br>
     <p>Weight Type:
-    <select name="exercise[current_exercises][<%= exercise.slug %>][weight_type]">
-      <option value="Barbell" <%='selected' if exercise.weight_type.include?('Barbell') %>>Barbell</option>
-      <option value="Dumbbell" <%='selected' if exercise.weight_type.include?('Dumbbell') %>>Dumbbell</option>
-      <option value="Machine" <%='selected' if exercise.weight_type.include?('Machine') %>>Machine</option>
-      <option value="Reps Only" <%='selected' if exercise.weight_type.include?('Reps Only') %>>Reps Only</option>
-    </select></p>
-  </p>
+    <select name="weight_type">
+      <option value="Barbell"> Barbell</option>
+      <option value="Dumbbell"> Dumbbell</option>
+      <option value="Machine"> Machine</option>
+      <option value="Reps Only"> Reps Only</option>
+    </select>
+    </p>
+    <p>Body Part:
+    <select name="body_part">
+      <option value="Legs"> Legs</option>
+      <option value="Chest"> Chest</option>
+      <option value="Shoulders"> Shoulders</option>
+      <option value="Arms"> Arms</option>
+      <option value="Back"> Back</option>
+      <option value="Abdominals"> Abdominals</option>
+    </select>
+    </p>
+    <input type="submit" value="Create">
   </form>
+</div>
+<br>
+<div class="">
+  <p><a href="/exercises">Click here</a> to view all exercises.</p>
+</div>
+
+<div class="">
+  <small>Currently logged in as <%= current_user.username %>. Not you? <a href="/logout">Log out</a>, or <a href="/users/<%= current_user.username %>">click here</a> to return to your profile.</small>
 </div>
