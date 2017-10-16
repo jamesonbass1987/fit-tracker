@@ -1,3 +1,10 @@
+TODO AS OF 9:30PM 10/15
+
+- Create Sets Views/Controller Methods
+- Fix db models for exercises (unable to create duplicate exercises...potentially in db relationships)
+- DESIGN! Use bootstrap
+- Create walkthrough video
+
 
 -MODELS-
 

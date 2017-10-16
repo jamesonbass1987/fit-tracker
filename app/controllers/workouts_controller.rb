@@ -20,7 +20,7 @@ class WorkoutsController < ApplicationController
   end
 
   post '/workouts' do
-    @user = current_user
+    user = current_user
 
     #check for blank name entry
     if params[:name] == ""
@@ -28,24 +28,25 @@ class WorkoutsController < ApplicationController
     end
 
     #create new workout instance and save to DB
-    @workout = Workout.create(:name => params[:name], :notes => params[:notes])
+    workout = Workout.create(:name => params[:name], :description => params[:description])
 
     #enumerate through selected exercises, adding them to workout
     params[:exercise][:id].each do |exercise_id|
       exercise = Exercise.find_by_id(exercise_id)
-      @workout.exercises << exercise
+      workout.exercises << exercise
     end
 
     #save to user workouts
-    @user.workouts << @workout
+    user.workouts << workout
 
-    redirect to :"/workouts/#{@workout.id}"
+    redirect to :"/workouts/#{workout.id}"
   end
 
   get '/workouts/:id' do
     logged_in_redirect_check
     @workout = Workout.find_by_id(params[:id])
 
+    #check to see if workout exists and belong to current user
     if @workout && @workout.user_id == current_user.id
       @authorized_user = true
     end
@@ -76,37 +77,37 @@ class WorkoutsController < ApplicationController
   patch '/workouts/:id' do
 
     #find workout and current user and set to instance variables
-    @workout = Workout.find_by_id(params[:id])
+    workout = Workout.find_by_id(params[:id])
 
-    #update name and notes sections with any changes
-    @workout.name = params[:name]
-    @workout.notes = params[:workout_notes]
+    #update name and description sections with any changes
+    workout.name = params[:name]
+    workout.description = params[:workout_description]
 
     #iterate through newly added exercises, adding them to workout
-    if params[:exercise][:id]
+    if params[:exercise].include?(:id)
       params[:exercise][:id].each do |id|
         exercise = Exercise.find_by_id(id)
-        @workout.exercises << exercise
+        workout.exercises << exercise
       end
     end
 
-    #iterate through current exercise attributes, updating params if needed
-    params[:exercise][:current_exercises].each do |exercise|
-      name = exercise[0].split("_").map {|word| word.capitalize}.join(" ")
-      current_exercise = @workout.exercises.find_by_name(name)
-      current_exercise.notes = exercise[1][:notes]
-      current_exercise.weight_type = exercise[1][:weight_type]
-      current_exercise.save
+    #iterate through current exercise attributes, removing from workout
+    if params[:exercise].include?(:current_exercises)
+      params[:exercise][:current_exercises].each do |id|
+        exercise = Exercise.find_by_id(id)
+        workout.exercises.delete(exercise)
+      end
     end
 
-    @workout.save
+    workout.save
 
-    redirect to :"/workouts/#{@workout.id}"
+    redirect to :"/workouts/#{workout.id}"
   end
 
   delete '/workouts/:id/delete' do
     workout = Workout.find_by_id(params[:id])
 
+    #validate current user is owner of workout and logged in
     if current_user.id == workout.user_id && logged_in?
       workout.destroy
       redirect to "/workouts"

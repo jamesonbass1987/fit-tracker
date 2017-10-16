@@ -1,0 +1,17 @@
+<div class="">
+  <h1>Create New Exercise</h1>
+</div>
+<div class="">
+  <form class="" action="index.html" method="post">
+    <p>Exercise Name:<input type="text" name="name" value=""></p>
+    <p>Exercise Description:<input type="text" name="name" value=""></p>
+    <p>Weight Type:
+    <select name="exercise[current_exercises][<%= exercise.slug %>][weight_type]">
+      <option value="Barbell" <%='selected' if exercise.weight_type.include?('Barbell') %>>Barbell</option>
+      <option value="Dumbbell" <%='selected' if exercise.weight_type.include?('Dumbbell') %>>Dumbbell</option>
+      <option value="Machine" <%='selected' if exercise.weight_type.include?('Machine') %>>Machine</option>
+      <option value="Reps Only" <%='selected' if exercise.weight_type.include?('Reps Only') %>>Reps Only</option>
+    </select></p>
+  </p>
+  </form>
+</div>

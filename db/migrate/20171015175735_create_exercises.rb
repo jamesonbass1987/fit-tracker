@@ -4,7 +4,7 @@ class CreateExercises < ActiveRecord::Migration
       t.string :name
       t.string :body_part
       t.string :weight_type
-      t.string :notes
+      t.string :description
     end
   end
 end

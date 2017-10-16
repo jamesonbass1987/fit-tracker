@@ -6,20 +6,15 @@
   <form class="" action="/workouts/<%= @workout.id %>" method="post">
     <input id="hidden" type="hidden" name="_method" value="patch">
     <h3>Name: <input type="text" name="name" value="<%= @workout.name %>"></h3><br>
-    <h3>Workout Notes: <textarea name="workout_notes" rows="4" cols="40"><%= @workout.notes %></textarea></h3><br>
+    <h3>Description: <textarea name="workout_description" rows="4" cols="40"><%= @workout.description %></textarea></h3><br>
     <% @workout.exercises.each do |exercise| %>
       <div class="">
         <p><b>Exercise:</b> <%= exercise.name %></p>
         <p>Body Part: <%= exercise.body_part %></p>
-        <p>Weight Type:
-          <select name="exercise[current_exercises][<%= exercise.slug %>][weight_type]">
-            <option value="Barbell" <%='selected' if exercise.weight_type.include?('Barbell') %>>Barbell</option>
-            <option value="Dumbbell" <%='selected' if exercise.weight_type.include?('Dumbbell') %>>Dumbbell</option>
-            <option value="Machine" <%='selected' if exercise.weight_type.include?('Machine') %>>Machine</option>
-            <option value="Reps Only" <%='selected' if exercise.weight_type.include?('Reps Only') %>>Reps Only</option>
-          </select></p>
-        </p>
-        <p>Notes: <textarea name="exercise[current_exercises][<%= exercise.slug %>][notes]" rows="4" cols="40"><%= exercise.notes %></textarea></p>
+        <p>Weight Type: <%= exercise.weight_type %></p>
+        <div class="">
+          <p><input type="checkbox" name="[exercise][current_exercises][]" value="<%= exercise.id %>">Remove From Workout</p>
+        </div>
       </div>
     <% end %>
     <div class="">
@@ -27,42 +22,96 @@
       <h4>Legs</h4>
         <% @legs.each do |exercise| %>
           <div class="">
-            <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" <%='selected' if @workout.exercises.include?(exercise) %>><%= exercise.name %>
+            <% if !@workout.exercises.include?(exercise) %>
+              <div class="">
+                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">
+              </div>
+              <div class="">
+                <p><%= exercise.name %></p>
+                <p><%= exercise.description %></p>
+                <p>Weight Type: <%= exercise.weight_type %></p>
+              </div>
+            <% end %>
           </div>
         <% end %>
       <h4>Chest</h4>
         <% @chest.each do |exercise| %>
           <div class="">
-            <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+            <% if !@workout.exercises.include?(exercise) %>
+              <div class="">
+                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">
+              </div>
+              <div class="">
+                <p><%= exercise.name %></p>
+                <p><%= exercise.description %></p>
+                <p>Weight Type: <%= exercise.weight_type %></p>
+              </div>
+            <% end %>
           </div>
         <% end %>
       <h4>Shoulders</h4>
         <% @shoulders.each do |exercise| %>
           <div class="">
-            <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+            <% if !@workout.exercises.include?(exercise) %>
+              <div class="">
+                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">
+              </div>
+              <div class="">
+                <p><%= exercise.name %></p>
+                <p><%= exercise.description %></p>
+                <p>Weight Type: <%= exercise.weight_type %></p>
+              </div>
+            <% end %>
           </div>
         <% end %>
       <h4>Arms</h4>
         <% @arms.each do |exercise| %>
           <div class="">
-            <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+            <% if !@workout.exercises.include?(exercise) %>
+              <div class="">
+                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">
+              </div>
+              <div class="">
+                <p><%= exercise.name %></p>
+                <p><%= exercise.description %></p>
+                <p>Weight Type: <%= exercise.weight_type %></p>
+              </div>
+            <% end %>
           </div>
         <% end %>
       <h4>Back</h4>
         <% @back.each do |exercise| %>
           <div class="">
-            <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+            <% if !@workout.exercises.include?(exercise) %>
+              <div class="">
+                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">
+              </div>
+              <div class="">
+                <p><%= exercise.name %></p>
+                <p><%= exercise.description %></p>
+                <p>Weight Type: <%= exercise.weight_type %></p>
+              </div>
+            <% end %>
           </div>
         <% end %>
       <h4>Abdominals</h4>
-      <% @abdominals.each do |exercise| %>
-        <div class="">
-          <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
-        </div>
-      <% end %>
+        <% @abdominals.each do |exercise| %>
+          <div class="">
+            <% if !@workout.exercises.include?(exercise) %>
+              <div class="">
+                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">
+              </div>
+              <div class="">
+                <p><%= exercise.name %></p>
+                <p><%= exercise.description %></p>
+                <p>Weight Type: <%= exercise.weight_type %></p>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
       <br>
     </div>
-    <p>Don't see what you want? Create new exercises <a href="/workouts/new">here</a>.</p>
+    <p>Don't see what you want? Create new exercises <a href="/exercises/new">here</a>.</p>
     <input type="submit" value="Edit">
   </form>
   <br>

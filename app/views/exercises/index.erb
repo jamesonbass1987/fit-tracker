@@ -1,0 +1,54 @@
+<h1>Exercise Overview</h1>
+
+<div class="">
+  <h4>Legs</h4>
+    <% @legs.each do |exercise| %>
+          <div class="">
+            <p><a href="/exercises/<%= exercise.id %>"> <%= exercise.name %></a></p>
+            <p><%= exercise.description %></p>
+            <p>Weight Type: <%= exercise.weight_type %></p>
+          </div>
+    <% end %>
+  <h4>Chest</h4>
+    <% @chest.each do |exercise| %>
+          <div class="">
+            <p><a href="/exercises/<%= exercise.id %>"> <%= exercise.name %></a></p>
+            <p><%= exercise.description %></p>
+            <p>Weight Type: <%= exercise.weight_type %></p>
+          </div>
+    <% end %>
+  <h4>Shoulders</h4>
+    <% @shoulders.each do |exercise| %>
+          <div class="">
+            <p><a href="/exercises/<%= exercise.id %>"> <%= exercise.name %></a></p>
+            <p><%= exercise.description %></p>
+            <p>Weight Type: <%= exercise.weight_type %></p>
+          </div>
+    <% end %>
+  <h4>Arms</h4>
+    <% @arms.each do |exercise| %>
+          <div class="">
+            <p><a href="/exercises/<%= exercise.id %>"> <%= exercise.name %></a></p>
+            <p><%= exercise.description %></p>
+            <p>Weight Type: <%= exercise.weight_type %></p>
+          </div>
+    <% end %>
+  <h4>Back</h4>
+    <% @back.each do |exercise| %>
+          <div class="">
+            <p><a href="/exercises/<%= exercise.id %>"> <%= exercise.name %></a></p>
+            <p><%= exercise.description %></p>
+            <p>Weight Type: <%= exercise.weight_type %></p>
+          </div>
+    <% end %>
+  <h4>Abdominals</h4>
+    <% @abdominals.each do |exercise| %>
+          <div class="">
+            <p><a href="/exercises/<%= exercise.id %>"> <%= exercise.name %></a></p>
+            <p><%= exercise.description %></p>
+            <p>Weight Type: <%= exercise.weight_type %></p>
+          </div>
+    <% end %>
+  <br>
+  <p>Don't see an exercise you are looking for? Create new exercises <a href="/exercises/new">here</a>.</p>
+</div>
