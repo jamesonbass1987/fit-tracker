@@ -1,0 +1,27 @@
+<div class="">
+  <h1><%= @exercise.name %></h1>
+</div>
+
+<div class="">
+  <p>Weight Type: <%= @exercise.weight_type %></p>
+  <p>Body Part: <%= @exercise.body_part %></p>
+  <% if @sets && @sets.any? {|set| set.measurement == "Lbs" || set.measurement == "Kg"} %>
+    <p>Units: <%= @sets.all.find {|set| set.weight != ""} %></p>
+  <% end %>
+</div>
+
+<form class="" action="/exercises/<%= @exercise.id %>/sets" method="post">
+  <p>Units:
+    <select name="measurement">
+      <option value="Kg" <%='selected' if @exercise.weight_type.include?('Kg') %>>Kg</option>
+      <option value="Lbs" <%='selected' if @exercise.weight_type.include?('Lbs') %>>Lbs</option>
+    </select>
+  </p>
+  <p>Weight: <input type="text" name="weight"></p>
+  <p>Reps: <input type="text" name="reps"></p>
+  <input type="submit" name="" value="Submit">
+</form>
+<br>
+<div class="">
+  <p><a href="/exercises/<%= @exercise.id %>">Click here</a> to return to the exercise.</p>
+</div>

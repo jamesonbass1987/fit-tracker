@@ -18,6 +18,32 @@
           <p>Body Part: <%= exercise.body_part %></p>
           <p>Weight Type: <%= exercise.weight_type %></p>
         </div>
+        <div class="">
+            <div class="">
+              <% if !exercise.exercise_sets.empty? %>
+                <p><a href="/exercises/<%= exercise.id %>/sets/edit">Add/Edit Sets</a></p>
+              <% else %>
+                <p><a href="/exercises/<%= exercise.id %>/sets/edit">Add Sets</a></p>
+              <% end %>
+            </div>
+            <% exercise.exercise_sets.each do |set| %>
+            <% @num = 1 %>
+              <table>
+                <tr>
+                  <th>Set #</th>
+                  <th>Weight</th>
+                  <th>Reps</th>
+                </tr>
+                    <tr>
+                  <td><%= @num %></td>
+                  <td><%= set.weight %></td>
+                  <td><%= set.reps %></td>
+                </tr>
+              <% @num += 1 %>
+            </table>
+            <br>
+          <% end %>
+        </div>
       <% end %>
     <% else %>
       <div class="">
