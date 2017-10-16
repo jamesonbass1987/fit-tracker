@@ -113,3 +113,19 @@
     line-height: 24px;
   }
 }
+
+
+/* --- Authentication Page Styles --- */
+
+.login_signup_error {
+  background-color: red;
+  color: white;
+  padding: 8px;
+  margin: 5px;
+}
+
+input[type=submit] {
+    width: 5em;
+    height: 2em;
+    font-size: 80%;
+}

@@ -1,0 +1,55 @@
+<div class="">
+  <h1>Create Workout</h1>
+</div>
+
+<br>
+<div class="">
+  <form class="" action="/workouts" method="post">
+
+    <p>Workout Name: <input type="text" name="name"></p>
+    <h3>Exercises:</h3>
+    <h4>Legs</h4>
+      <% @legs.each do |exercise| %>
+        <div class="">
+          <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+        </div>
+      <% end %>
+    <h4>Chest</h4>
+      <% @chest.each do |exercise| %>
+        <div class="">
+          <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+        </div>
+      <% end %>
+    <h4>Shoulders</h4>
+      <% @shoulders.each do |exercise| %>
+        <div class="">
+          <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+        </div>
+      <% end %>
+    <h4>Arms</h4>
+      <% @arms.each do |exercise| %>
+        <div class="">
+          <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+        </div>
+      <% end %>
+    <h4>Back</h4>
+      <% @back.each do |exercise| %>
+        <div class="">
+          <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+        </div>
+      <% end %>
+    <h4>Abdominals</h4>
+    <% @abdominals.each do |exercise| %>
+      <div class="">
+        <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %>
+      </div>
+    <% end %>
+
+    <br>
+
+    <p>Don't see the one you are looking for? <a href="/exercises/new">Click here</a> to create a new exercise.</p>
+
+    <p>Notes: <textarea name="notes" rows="6" cols="50"></textarea> </p>
+    <input type="submit"value="Create">
+  </form>
+</div>

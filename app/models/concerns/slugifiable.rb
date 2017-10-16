@@ -1,10 +1,12 @@
 module Slugifiable
 
   module ClassMethods
+  end
 
-    def find_by_slug(input)
-      unslugged_input = input.split("-").join(" ")
-      output ||= User.where('username like ?', unslugged_input).first
+  module InstanceMethods
+
+    def slug
+      self.name.split(" ").map{|word| word.downcase}.join("_")
     end
   end
 

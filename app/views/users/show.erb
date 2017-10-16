@@ -2,17 +2,16 @@
   <div class="login_signup_error">
     There was an error, or you are not authorized to view this page. Please log in as this user to view the page.
   </div>
-
-  <div class="">
-    <br>
-    <p>Currently logged in as <%= current_user.username %>. Not you? <a href="/logout">Log out</a>, or <a href="/users/<%= current_user.username %>">click here</a> to return to your profile.</p>
-  </div>
 <% end %>
 
 
 <% if @authorized_user%>
 <div class="">
   <h1>User Page for <%= @user.username %></h1>
+</div>
+
+<div class="">
+  <h3>Hello <%= @user.first_name %>!</h3>
 </div>
 
 <div class="">
@@ -32,6 +31,10 @@
     <p>You have not created any workouts! <a href="/workouts/new">Click Here</a> to get started.</p>
     <% end %>
   </div>
+</div>
+<br>
+<div class="">
+  <p><a href="/workouts/new">Click here</a> to create a new workout.</p>
 </div>
 
 <div class="">

@@ -1,0 +1,49 @@
+<% if !@authorized_user%>
+  <div>
+    Something went wrong, or you are not authorized to view this workout. To return to your profile, <a href="/users/<%= current_user.username %>">click here</a>.
+  </div>
+<% end %>
+
+<% if @authorized_user%>
+
+  <div class="">
+    <h1>Workout: <%= @workout.name %></h1>
+  </div>
+
+  <div class="">
+    <p>Notes: <%= @workout.notes %></p>
+  </div>
+
+
+  <div class="">
+    <% if @workout.exercises.count > 0 %>
+      <% @workout.exercises.each do |exercise| %>
+        <div class="">
+          <p><b>Exercise:</b> <%= exercise.name %></p>
+          <p>Body Part: <%= exercise.body_part %></p>
+          <p>Weight Type: <%= exercise.weight_type %></p>
+          <p>Notes: <%= exercise.notes %></p>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="">
+        <p>You have no exercises added to this workout. Get started <a href="/workouts/new">here</a>.</p>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="">
+    <p><a href="/workouts/<%= @workout.id %>/edit">Click here</a> to edit this workout.</p>
+  </div>
+
+  <div class="">
+    <form class="" action="/workouts/<%= @workout.id %>/delete" method="post">
+      <input id="hidden" type="hidden" name="_method" value="delete">
+      <input type="submit" value="Delete">
+    </form>
+  </div>
+
+<div class="">
+  <small>Currently logged in as <%= current_user.username %>. Not you? <a href="/logout">Log out</a>, or <a href="/users/<%= current_user.username %>">click here</a> to return to your profile.</small>
+</div>
+<% end %>

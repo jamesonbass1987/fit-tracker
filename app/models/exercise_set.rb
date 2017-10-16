@@ -1,5 +1,5 @@
 class ExerciseSet < ActiveRecord::Base
-  has_many :exercises_exercise_sets
-  has_many :exercises, through: :exercise_exercise_sets
+  belongs_to :exercise
   extend Slugifiable::ClassMethods
+  include Slugifiable::InstanceMethods
 end
