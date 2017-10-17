@@ -2,32 +2,46 @@
   <h1><%= @exercise.name %></h1>
 </div>
 
+
 <div class="">
   <p>Weight Type: <%= @exercise.weight_type %></p>
   <p>Body Part: <%= @exercise.body_part %></p>
 </div>
 
-<% if @sets.count == 0 %>
 <div class="">
-  <p>You currently have no sets added to this exercise. <a href="/exercises/<%= @exercise.id %>/sets/new">Click here</a> to get started.</p>
-</div>
-<% end %>
 
-<% if @sets.count > 0 %>
-  <table>
-    <tr>
-      <th>Set #</th>
-      <th>Weight</th>
-      <th>Reps</th>
-    </tr>
-    <% @sets.each do |set| %>
-      <% @num = 1 %>
-        <tr>
-          <td><%= @num %></td>
-          <td><%= set.weight %></td>
-          <td><%= set.reps %></td>
-        </tr>
-      <% @num += 1 %>
-    <% end %>
-  </table>
-<% end %>
+  <form id="editForm" action="/exercises/<%= @exercise.id %>/sets" method="post">
+    <input form= "editForm"id="hidden" type="hidden" name="_method" value="patch">
+  </form>
+  <form id="deleteForm" action="/exercises/<%= @exercise.id %>/sets/delete" method="post">
+    <input form= "deleteForm"id="hidden" type="hidden" name="_method" value="delete">
+  </form>
+
+    <table>
+      <tr>
+        <th>Set #</th>
+        <th>Weight</th>
+        <th>Reps</th>
+        <th></th>
+      </tr>
+      <% @sets.each do |set| %>
+          <tr>
+            <td><%= @set_num += 1 %></td>
+            <td><input type="text" name="exercise_set[<%= @set_num %>][weight]" form="editForm" value="<%= set.weight %>"></td>
+            <td><input type="text" name="exercise_set[<%= @set_num %>][reps]" form="editForm" value="<%= set.reps %>"></td>
+            <td><input type="submit" name="exercise_set[<%= @set_num %>]" form="deleteForm" value="Delete"></td>
+          </tr>
+      <% end %>
+    </table>
+    <br>
+    <input type="submit" value="Edit" form="editForm">
+</div>
+
+
+<div class="">
+  <p><a href="/exercises">Click here</a> to view all exercises.</p>
+</div>
+
+<div class="">
+  <small>Currently logged in as <%= current_user.username %>. Not you? <a href="/logout">Log out</a>, or <a href="/users/<%= current_user.username %>">click here</a> to return to your profile.</small>
+</div>

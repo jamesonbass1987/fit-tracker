@@ -11,7 +11,7 @@
     <% if @workout.exercises.count > 0 %>
       <% @workout.exercises.each do |exercise| %>
         <div class="">
-          <p><b>Exercise:</b> <%= exercise.name %></p>
+          <p><b>Exercise:</b> <a href="/exercises/<%= exercise.id %>"><%= exercise.name %></a></p>
             <% if exercise.user_id == current_user.id %>
               <p><a href="/exercises/<%= exercise.id %>/edit">Edit this exercise</a>.</p>
             <% end %>
@@ -19,30 +19,26 @@
           <p>Weight Type: <%= exercise.weight_type %></p>
         </div>
         <div class="">
-            <div class="">
-              <% if !exercise.exercise_sets.empty? %>
-                <p><a href="/exercises/<%= exercise.id %>/sets/edit">Add/Edit Sets</a></p>
-              <% else %>
-                <p><a href="/exercises/<%= exercise.id %>/sets/edit">Add Sets</a></p>
-              <% end %>
-            </div>
-            <% exercise.exercise_sets.each do |set| %>
-            <% @num = 1 %>
-              <table>
-                <tr>
-                  <th>Set #</th>
-                  <th>Weight</th>
-                  <th>Reps</th>
-                </tr>
+            <table>
+              <tr>
+                <th>Set #</th>
+                <th>Weight</th>
+                <th>Reps</th>
+              </tr>
+              <% @num = 1 %>
+              <% exercise.exercise_sets.each do |set| %>
                     <tr>
-                  <td><%= @num %></td>
-                  <td><%= set.weight %></td>
-                  <td><%= set.reps %></td>
-                </tr>
-              <% @num += 1 %>
+                    <td><%= @num %></td>
+                    <td><%= set.weight %></td>
+                    <td><%= set.reps %></td>
+                  </tr>
+                <% @num += 1 %>
+              <% end %>
             </table>
-            <br>
-          <% end %>
+          <br>
+        </div>
+        <div class="">
+            <p><a href="/exercises/<%= exercise.id %>/sets/edit">Add/Edit Sets</a></p>
         </div>
       <% end %>
     <% else %>

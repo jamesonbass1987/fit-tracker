@@ -2,7 +2,9 @@ class WorkoutsController < ApplicationController
 
   get '/workouts' do
     logged_in_redirect_check
-    redirect to :"/users/#{current_user.username}"
+    @user = current_user
+
+    erb :"/users/show"
   end
 
   get '/workouts/new' do

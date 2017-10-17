@@ -9,4 +9,5 @@ use AuthenticationController
 use ExercisesController
 use UsersController
 use WorkoutsController
+use ExerciseSetsController
 run ApplicationController

@@ -5,10 +5,10 @@ class UsersController < ApplicationController
     @user = current_user
 
     if @user == User.find_by(:username => params[:username])
-      @authorized_user = true
+      erb :"/users/show"
+    else
+      redirect to :"/users/#{@user.username}"
     end
-
-    erb :"/users/show"
   end
 
 end

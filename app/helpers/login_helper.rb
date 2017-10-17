@@ -22,11 +22,9 @@ module LoginHelpers
       end
     end
 
-    def exercise_owner_check
-      exercise = Exercise.find_by_id(params[:id])
-
-      if !exercise || current_user.id != exercise.user_id
-        redirect to '/exercises'
+    def profile_page_redirect
+      if logged_in?
+        redirect to "/users/#{current_user.username}"
       end
     end
 
