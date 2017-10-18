@@ -25,8 +25,8 @@ class ExercisesController < ApplicationController
     @exercise = Exercise.new(:name => params[:name], :description => params[:description], :body_part => params[:body_part], :weight_type => params[:weight_type])
     @user = current_user
 
-    #search current list of exercises for duplicates in open exercise list or user created list and check for blank parameters, if so, reload page with error
-    if Exercise.all.any?{|exercise| (exercise.name == @exercise.name && exercise.user_id == current_user.id) || (exercise.name == @exercise.name && exercise.user_id.nil?)} || @exercise.name == "" || @exercise.description == ""
+    #search current list of exercises for duplicates in open exercise list or user created list. if so, reload page with error
+    if Exercise.all.any?{|exercise| (exercise.name == @exercise.name && exercise.user_id == current_user.id) || (exercise.name == @exercise.name && exercise.user_id.nil?)}
       @exercise_creation_error = true
       erb :"/exercises/create"
     else
@@ -36,7 +36,7 @@ class ExercisesController < ApplicationController
       #save exercise instance to DB
       @exercise.save
 
-      erb :"/exercises/show"
+      redirect to '/exercises'
     end
   end
 
@@ -70,13 +70,6 @@ class ExercisesController < ApplicationController
     #create instance of exercise
     @exercise = Exercise.find_by_id(params[:id])
 
-    #checks for blank fields, redirects with error if so
-    if params[:name] == "" || params[:description] == ""
-      @exercise_edit_error = true
-      erb :"/exercises/edit"
-    end
-
-
     if @exercise.name != params[:name] || @exercise.description != params[:description] || @exercise.body_part != params[:body_part] || @exercise.weight_type != params[:weight_type]
       erb :"/exercises/create"
       #update parameters if any have changed
@@ -100,7 +93,7 @@ class ExercisesController < ApplicationController
   end
 
   delete '/exercises/:id/delete' do
-    
+
     exercise = Exercise.find_by_id(params[:id])
 
     #validate current user is creator of exercise

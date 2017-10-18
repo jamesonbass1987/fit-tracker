@@ -22,11 +22,11 @@
     <input id="hidden" type="hidden" name="_method" value="patch">
     <div class="form-group">
       <label for="name">Name:</label>
-      <input type="text" class="form-control" form="editForm" name="name" value="<%= @exercise.name %>">
+      <input type="text" class="form-control" form="editForm" name="name" value="<%= @exercise.name %>" required autofocus>
     </div>
     <div class="form-group">
       <label for="name">Description:</label>
-      <textarea name="description" class="form-control" form="editForm"; rows="6" cols="50"><%= @exercise.description %></textarea>
+      <textarea name="description" class="form-control" form="editForm"; rows="6" cols="50" required><%= @exercise.description %></textarea>
     </div>
     <div class="form-group">
       <label for="weight_type">Weight Type:</label>
