@@ -1,73 +1,112 @@
-<div class="">
-  <h1>Create Workout</h1>
-</div>
+<div class="container">
+  <h1><strong>Create Workout</strong></h1>
 
-<br>
-<div class="">
-  <form class="" action="/workouts" method="post">
+  <form action="/workouts" method="post">
 
-    <p>Workout Name: <input type="text" name="name"></p>
-    <p>Description: <textarea name="description" rows="6" cols="50"></textarea> </p>
-    <h3>Exercises:</h3>
-    <h4>Legs</h4>
-    <br>
+    <div class="form-group">
+      <label for="name">Workout Name:</label>
+      <input type="text" class="form-control" name="name" required autofocus>
+    </div>
+    <div class="form-group">
+      <label for="name">Description:</label>
+      <textarea name="description" class="form-control"; rows="6" cols="50" required></textarea>
+    </div>
+    <h3><strong>Exercises:</strong></h3>
+    <div class="col-md-12">
+      <h4><strong>Legs</strong></h4>
+      <br>
       <% @legs.each do |exercise| %>
-        <div class="">
-          <p><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %></p>
-          <p><%= exercise.description %></p>
-          <p>Weight Type: <%= exercise.weight_type %></p>
+        <div class="col-md-3 panel panel-default">
+          <label class="checkbox-inline">
+            <br>
+            <img src="/images/weightlifting-icon-legs.png" class="img-responsive center-block" style="width:40%; vertical-align: middle; position: relative; right: 8%" alt="">
+            <p style="text-align: center; vertical-align: middle"><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></p>
+            <br>
+            <p style="text-align: center; position: relative; right: 8%"><strong><%= exercise.name %></strong></p>
+          </label>
         </div>
       <% end %>
-    <h4>Chest</h4>
+    </div>
+    <div class="col-md-12">
+    <h4><strong>Chest</strong></h4>
     <br>
       <% @chest.each do |exercise| %>
-        <div class="">
-          <p><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %></p>
-          <p><%= exercise.description %></p>
-          <p>Weight Type: <%= exercise.weight_type %></p>
+        <div class="col-md-3 panel panel-default">
+          <label class="checkbox-inline">
+            <br>
+            <img src="/images/weightlifting-icon-legs.png" class="img-responsive center-block" style="width:40%; vertical-align: middle; position: relative; right: 8%" alt="">
+            <p style="text-align: center; vertical-align: middle"><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></p>
+            <br>
+            <p style="text-align: center; position: relative; right: 8%"><strong><%= exercise.name %></strong></p>
+          </label>
         </div>
       <% end %>
-    <h4>Shoulders</h4>
+    </div>
+    <div class="col-md-12">
+    <h4><strong>Shoulders<strong></h4>
     <br>
       <% @shoulders.each do |exercise| %>
-        <div class="">
-          <p><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %></p>
-          <p><%= exercise.description %></p>
-          <p>Weight Type: <%= exercise.weight_type %></p>
+        <div class="col-md-3 panel panel-default">
+          <label class="checkbox-inline">
+            <br>
+            <img src="/images/weightlifting-icon-legs.png" class="img-responsive center-block" style="width:40%; vertical-align: middle; position: relative; right: 8%" alt="">
+            <p style="text-align: center; vertical-align: middle"><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></p>
+            <br>
+            <p style="text-align: center; position: relative; right: 8%"><strong><%= exercise.name %></strong></p>
+          </label>
         </div>
       <% end %>
-    <h4>Arms</h4>
+    </div>
+    <div class="col-md-12">
+    <h4><strong>Arms<strong></h4>
     <br>
       <% @arms.each do |exercise| %>
-        <div class="">
-          <p><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %></p>
-          <p><%= exercise.description %></p>
-          <p>Weight Type: <%= exercise.weight_type %></p>
+        <div class="col-md-3 panel panel-default">
+          <label class="checkbox-inline">
+            <br>
+            <img src="/images/weightlifting-icon-legs.png" class="img-responsive center-block" style="width:40%; vertical-align: middle; position: relative; right: 8%" alt="">
+            <p style="text-align: center; vertical-align: middle"><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></p>
+            <br>
+            <p style="text-align: center; position: relative; right: 8%"><strong><%= exercise.name %></strong></p>
+          </label>
         </div>
       <% end %>
-    <h4>Back</h4>
+    </div>
+    <div class="col-md-12">
+    <h4><strong>Back<strong></h4>
     <br>
       <% @back.each do |exercise| %>
-        <div class="">
-          <p><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %></p>
-          <p><%= exercise.description %></p>
-          <p>Weight Type: <%= exercise.weight_type %></p>
+        <div class="col-md-3 panel panel-default">
+          <label class="checkbox-inline">
+            <br>
+            <img src="/images/weightlifting-icon-legs.png" class="img-responsive center-block" style="width:40%; vertical-align: middle; position: relative; right: 8%" alt="">
+            <p style="text-align: center; vertical-align: middle"><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></p>
+            <br>
+            <p style="text-align: center; position: relative; right: 8%"><strong><%= exercise.name %></strong></p>
+          </label>
         </div>
       <% end %>
-    <h4>Abdominals</h4>
+    </div>
+    <div class="col-md-12">
+    <h4><strong>Abdominals</strong></h4>
     <br>
-    <% @abdominals.each do |exercise| %>
-      <div class="">
-        <p><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>"><%= exercise.name %></p>
-        <p><%= exercise.description %></p>
-        <p>Weight Type: <%= exercise.weight_type %></p>
-      </div>
-    <% end %>
-
+      <% @abdominals.each do |exercise| %>
+        <div class="col-md-3 panel panel-default">
+          <label class="checkbox-inline">
+            <br>
+            <img src="/images/weightlifting-icon-legs.png" class="img-responsive center-block" style="width:40%; vertical-align: middle; position: relative; right: 8%" alt="">
+            <p style="text-align: center; vertical-align: middle"><input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></p>
+            <br>
+            <p style="text-align: center; position: relative; right: 8%"><strong><%= exercise.name %></strong></p>
+          </label>
+        </div>
+      <% end %>
+    </div>
     <br>
-
-    <p>Don't see the one you are looking for? <a href="/exercises/new">Click here</a> to create a new exercise.</p>
-
-    <input type="submit"value="Create">
+    <button type="submit" class="btn btn-primary">Create Workout</button>
   </form>
+  <br></br>
+  <div class="alert alert-info">
+    <strong>Don't see the one you are looking for?</strong> <a href="/exercises/new">Click here</a> to create a new exercise.
+  </div>
 </div>
