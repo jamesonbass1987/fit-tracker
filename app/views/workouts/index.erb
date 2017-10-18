@@ -1,24 +1,28 @@
-<div class="">
-  <div class="">
-    <h2>Your Workouts:</h2>
-  </div>
+<div class="container">
+  <h2><strong>Your Workouts:</strong></h2><br>
+
   <div class="">
     <% if @user.workouts.count > 0 %>
       <ol>
         <% @user.workouts.each do |workout| %>
-        <li>
-          <%= workout.name %> <a href="/workouts/<%= workout.id %>">View</a> <a href="/workouts/<%= workout.id %>/edit">Edit</a>
+        <li style="line-height: 90%">
+          <strong style="font-size: 110%"><%= workout.name %></strong><br><br>
+          <div class="btn-group">
+            <form action="/workouts/<%= workout.id %>/delete" method="post">
+              <input id="hidden" type="hidden" name="_method" value="delete">
+              <a href="/workouts/<%= workout.id %>"><button type="button" name="button" class="btn btn-success btn-sm"> &nbsp;&nbsp;View&nbsp;&nbsp;</button></a>
+              <a href="/workouts/<%= workout.id %>/edit"><button type="button" name="button" class="btn btn-warning btn-sm"> &nbsp;&nbsp;Edit&nbsp;&nbsp;</button></a>
+              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+          </div>
+            </form>
         </li>
+        <br>
         <% end %>
       </ol>
     <% else %>
-    <p>You have not created any workouts!</p>
+      <div class="alert alert-info">
+          You have not created any workouts! <a href="/workouts/new"><strong>Click here to get started.</strong></a>
+      </div>
     <% end %>
   </div>
-</div>
-<br>
-<div class="">
-  <p><a href="/workouts/new">Click here</a> to create a new workout.</p>
-  <p><a href="/exercises">Click here</a> to view all exercises.</p>
-  <p><a href="/exercises/new">Click here</a> to create a new exercise.</p>
 </div>
