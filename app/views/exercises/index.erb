@@ -1,86 +1,103 @@
 <h1>Exercise Overview</h1>
 
-<div class="">
-  <h4>Legs</h4>
-    <% @legs.each do |exercise| %>
-        <div class="">
-          <p><a href="/exercises/<%= exercise.id %>"> <%= exercise.name %></a></p>
-          <% if exercise.user_id == current_user.id %>
-            <div class="">
-              <p><a href="/exercises/<%= exercise.id %>/edit">Click Here</a> To Edit This Exercise</p>
-            </div>
-          <% end %>
-          <p>Weight Type: <%= exercise.weight_type %></p>
-        </div>
-    <% end %>
-  <h4>Chest</h4>
+
+
+<div class="container">
+  <div class="col-md-12">
+    <h4><strong>Legs</strong></h4>
+      <% @legs.each do |exercise| %>
+          <div class="col-md-3 panel panel-default">
+            <a href="/exercises/<%= exercise.id %>">
+              <br>
+              <img src="/images/weightlifting-icon-legs.png" class="img-responsive center-block" style="width:33%" alt="">
+              <br>
+              <p class="text-center"><strong><%= exercise.name %></strong></p>
+            </a>
+            <% if exercise.user_id == current_user.id %>
+              <p><a href="/exercises/<%= exercise.id %>/edit"><button type="button" class="btn btn-primary btn-md center-block">Edit Exercise</button></a>
+            <% end %>
+          </div>
+      <% end %>
+  </div>
+  <div class="col-md-12">
+  <h4><strong>Chest</strong></h4>
     <% @chest.each do |exercise| %>
-        <div class="">
-          <p><a href="/exercises/<%= exercise.id %>"> <%= exercise.name %></a></p>
-          <% if exercise.user_id == current_user.id %>
-            <div class="">
-              <p><a href="/exercises/<%= exercise.id %>/edit">Click Here</a> To Edit This Exercise</p>
-            </div>
-          <% end %>
-          <p>Weight Type: <%= exercise.weight_type %></p>
-        </div>
-
+    <div class="col-md-3 panel panel-default">
+      <a href="/exercises/<%= exercise.id %>">
+        <br>
+        <img src="/images/weightlifting-icon-chest.png" class="img-responsive center-block" style="width:35%" alt="">
+        <br>
+        <p class="text-center"><strong><%= exercise.name %></strong></p>
+      </a>
+      <% if exercise.user_id == current_user.id %>
+        <p><a href="/exercises/<%= exercise.id %>/edit"><button type="button" class="btn btn-primary btn-md center-block">Edit Exercise</button></a>
+      <% end %>
+    </div>
     <% end %>
-  <h4>Shoulders</h4>
+  </div>
+  <div class="col-md-12">
+  <h4><strong>Shoulders</strong></h4>
     <% @shoulders.each do |exercise| %>
-        <div class="">
-          <p><a href="/exercises/<%= exercise.id %>"> <%= exercise.name %></a></p>
-          <% if exercise.user_id == current_user.id %>
-            <div class="">
-              <p><a href="/exercises/<%= exercise.id %>/edit">Click Here</a> To Edit This Exercise</p>
-            </div>
-          <% end %>
-          <p>Weight Type: <%= exercise.weight_type %></p>
-        </div>
-
+    <div class="col-md-3 panel panel-default">
+      <a href="/exercises/<%= exercise.id %>">
+        <br>
+        <img src="/images/weightlifting-icon-shoulders.png" class="img-responsive center-block" style="width:35%" alt="">
+        <br>
+        <p class="text-center"><strong><%= exercise.name %></strong></p>
+      </a>
+      <% if exercise.user_id == current_user.id %>
+        <p><a href="/exercises/<%= exercise.id %>/edit"><button type="button" class="btn btn-primary btn-md center-block">Edit Exercise</button></a>
+      <% end %>
+    </div>
     <% end %>
-  <h4>Arms</h4>
+  </div>
+  <div class="col-md-12">
+  <h4><strong>Arms</strong></h4>
     <% @arms.each do |exercise| %>
-        <div class="">
-          <p><a href="/exercises/<%= exercise.id %>"> <%= exercise.name %></a></p>
-          <% if exercise.user_id == current_user.id %>
-            <div class="">
-              <p><a href="/exercises/<%= exercise.id %>/edit">Click Here</a> To Edit This Exercise</p>
-            </div>
-          <% end %>
-          <p>Weight Type: <%= exercise.weight_type %></p>
-        </div>
+    <div class="col-md-3 panel panel-default">
+      <a href="/exercises/<%= exercise.id %>">
+        <br>
+        <img src="/images/weightlifting-icon-arms.png" class="img-responsive center-block" style="width:35%" alt="">
+        <br>
+        <p class="text-center"><strong><%= exercise.name %></strong></p>
+      </a>
+      <% if exercise.user_id == current_user.id %>
+        <p><a href="/exercises/<%= exercise.id %>/edit"><button type="button" class="btn btn-primary btn-md center-block">Edit Exercise</button></a>
+      <% end %>
+    </div>
     <% end %>
-  <h4>Back</h4>
+  </div>
+  <div class="col-md-12">
+  <h4><strong>Back</strong></h4>
     <% @back.each do |exercise| %>
-        <div class="">
-          <p><a href="/exercises/<%= exercise.id %>"> <%= exercise.name %></a></p>
-          <% if exercise.user_id == current_user.id %>
-            <div class="">
-              <p><a href="/exercises/<%= exercise.id %>/edit">Click Here</a> To Edit This Exercise</p>
-            </div>
-          <% end %>
-          <p>Weight Type: <%= exercise.weight_type %></p>
-        </div>
-
+    <div class="col-md-3 panel panel-default">
+      <a href="/exercises/<%= exercise.id %>">
+        <br>
+        <img src="/images/weightlifting-icon-back.png" class="img-responsive center-block" style="width:35%" alt="">
+        <br>
+        <p class="text-center"><strong><%= exercise.name %></strong></p>
+      </a>
+      <% if exercise.user_id == current_user.id %>
+        <p><a href="/exercises/<%= exercise.id %>/edit"><button type="button" class="btn btn-primary btn-md center-block">Edit Exercise</button></a>
+      <% end %>
+    </div>
     <% end %>
-  <h4>Abdominals</h4>
+  </div>
+  <div class="col-md-12">
+  <h4><strong>Abdominals</strong></h4>
     <% @abdominals.each do |exercise| %>
-        <div class="">
-          <p><a href="/exercises/<%= exercise.id %>"> <%= exercise.name %></a></p>
-          <% if exercise.user_id == current_user.id %>
-            <div class="">
-              <p><a href="/exercises/<%= exercise.id %>/edit">Click Here</a> To Edit This Exercise</p>
-            </div>
-          <% end %>
-          <p>Weight Type: <%= exercise.weight_type %></p>
-        </div>
+    <div class="col-md-3 panel panel-default">
+      <a href="/exercises/<%= exercise.id %>">
+        <br>
+        <img src="/images/weightlifting-icon-abs.png" class="img-responsive center-block" style="width:40%" alt="">
+        <br>
+        <p class="text-center"><strong><%= exercise.name %></strong></p>
+      </a>
+      <% if exercise.user_id == current_user.id %>
+        <p><a href="/exercises/<%= exercise.id %>/edit"><button type="button" class="btn btn-primary btn-md center-block">Edit Exercise</button></a>
+      <% end %>
+    </div>
     <% end %>
+  </div>
   <p>Don't see an exercise you are looking for? Create new exercises <a href="/exercises/new">here</a>.</p>
-</div>
-
-<p><a href="/workouts">Click here</a> to view to your workouts.</p>
-
-<div class="">
-  <small>Currently logged in as <%= current_user.username %>. Not you? <a href="/logout">Log out</a>, or <a href="/users/<%= current_user.username %>">click here</a> to return to your profile.</small>
 </div>
