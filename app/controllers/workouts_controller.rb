@@ -4,7 +4,7 @@ class WorkoutsController < ApplicationController
     logged_in_redirect_check
     @user = current_user
 
-    erb :"/users/show"
+    erb :"/workouts/index"
   end
 
   get '/workouts/new' do
