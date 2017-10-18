@@ -87,10 +87,10 @@ class WorkoutsController < ApplicationController
 
     #update name and description sections with any changes
     workout.name = params[:name]
-    workout.description = params[:workout_description]
+    workout.description = params[:description]
 
     #iterate through newly added exercises, adding them to workout
-    if params[:exercise].include?(:id)
+    if !!params[:exercise] && params[:exercise].include?(:id)
       params[:exercise][:id].each do |id|
         exercise = Exercise.find_by_id(id)
         workout.exercises << exercise
@@ -98,7 +98,7 @@ class WorkoutsController < ApplicationController
     end
 
     #iterate through current exercise attributes, removing from workout
-    if params[:exercise].include?(:current_exercises)
+    if !!params[:exercise] && params[:exercise].include?(:current_exercises)
       params[:exercise][:current_exercises].each do |id|
         exercise = Exercise.find_by_id(id)
         workout.exercises.delete(exercise)

@@ -16,19 +16,19 @@
 
 <% if @exercise.user_id == current_user.id %>
   <div class="">
-    <form class="" action="/workouts/<%= @exercise.id %>/delete" method="post">
+    <form class="" action="/exercises/<%= @exercise.id %>/delete" method="post">
       <input id="hidden" type="hidden" name="_method" value="delete">
       <input type="submit" value="Delete">
     </form>
   </div>
   <br>
   <div class="">
-    <p><a href="/exercises/<%= @exercise.id %>/edit">Click here</a> to edit this exercise</p>
+    <p><a href="/exercises/<%= @exercise.id %>/edit">Click here</a> to edit this exercise.</p>
   </div>
 <% end %>
 
 <div class="">
-  <p><a href="/workouts">Click here</a> to add this exercise to one of your workouts!</p>
+  <p><a href="/workouts">Click here</a> to view your workouts.</p>
 </div>
 
 <div class="">

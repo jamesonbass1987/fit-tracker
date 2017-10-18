@@ -100,6 +100,7 @@ class ExercisesController < ApplicationController
   end
 
   delete '/exercises/:id/delete' do
+    
     exercise = Exercise.find_by_id(params[:id])
 
     #validate current user is creator of exercise

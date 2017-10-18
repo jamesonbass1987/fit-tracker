@@ -13,21 +13,19 @@
         <p>Body Part: <%= exercise.body_part %></p>
         <p>Weight Type: <%= exercise.weight_type %></p>
         <div class="">
-          <p><input type="checkbox" name="[exercise][current_exercises][]" value="<%= exercise.id %>">Remove From Workout</p>
+          <p><input type="checkbox" name="[exercise][current_exercises][]" value="<%= exercise.id %>">Remove</p>
         </div>
       </div>
     <% end %>
     <div class="">
       <h3>Add Exercises To Workout:</h3>
       <h4>Legs</h4>
+      <br>
         <% @legs.each do |exercise| %>
           <div class="">
             <% if !@workout.exercises.include?(exercise) %>
               <div class="">
-                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">
-              </div>
-              <div class="">
-                <p><%= exercise.name %></p>
+                <p>  <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">    <%= exercise.name %></p>
                 <p><%= exercise.description %></p>
                 <p>Weight Type: <%= exercise.weight_type %></p>
               </div>
@@ -35,14 +33,12 @@
           </div>
         <% end %>
       <h4>Chest</h4>
+      <br>
         <% @chest.each do |exercise| %>
           <div class="">
             <% if !@workout.exercises.include?(exercise) %>
               <div class="">
-                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">
-              </div>
-              <div class="">
-                <p><%= exercise.name %></p>
+                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">    <%= exercise.name %></p>
                 <p><%= exercise.description %></p>
                 <p>Weight Type: <%= exercise.weight_type %></p>
               </div>
@@ -50,14 +46,12 @@
           </div>
         <% end %>
       <h4>Shoulders</h4>
+      <br>
         <% @shoulders.each do |exercise| %>
           <div class="">
             <% if !@workout.exercises.include?(exercise) %>
               <div class="">
-                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">
-              </div>
-              <div class="">
-                <p><%= exercise.name %></p>
+                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">    <%= exercise.name %></p>
                 <p><%= exercise.description %></p>
                 <p>Weight Type: <%= exercise.weight_type %></p>
               </div>
@@ -65,14 +59,12 @@
           </div>
         <% end %>
       <h4>Arms</h4>
+      <br>
         <% @arms.each do |exercise| %>
           <div class="">
             <% if !@workout.exercises.include?(exercise) %>
               <div class="">
-                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">
-              </div>
-              <div class="">
-                <p><%= exercise.name %></p>
+                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">    <%= exercise.name %></p>
                 <p><%= exercise.description %></p>
                 <p>Weight Type: <%= exercise.weight_type %></p>
               </div>
@@ -80,14 +72,12 @@
           </div>
         <% end %>
       <h4>Back</h4>
+      <br>
         <% @back.each do |exercise| %>
           <div class="">
             <% if !@workout.exercises.include?(exercise) %>
               <div class="">
-                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">
-              </div>
-              <div class="">
-                <p><%= exercise.name %></p>
+                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">    <%= exercise.name %></p>
                 <p><%= exercise.description %></p>
                 <p>Weight Type: <%= exercise.weight_type %></p>
               </div>
@@ -95,14 +85,12 @@
           </div>
         <% end %>
       <h4>Abdominals</h4>
+      <br>
         <% @abdominals.each do |exercise| %>
           <div class="">
             <% if !@workout.exercises.include?(exercise) %>
               <div class="">
-                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">
-              </div>
-              <div class="">
-                <p><%= exercise.name %></p>
+                <input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>">    <%= exercise.name %></p>
                 <p><%= exercise.description %></p>
                 <p>Weight Type: <%= exercise.weight_type %></p>
               </div>
@@ -112,7 +100,7 @@
       <br>
     </div>
     <p>Don't see what you want? Create new exercises <a href="/exercises/new">here</a>.</p>
-    <input type="submit" value="Edit">
+    <input type="submit" value="Save">
   </form>
   <br>
   <div class="">

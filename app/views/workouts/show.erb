@@ -9,24 +9,22 @@
 
   <div class="">
     <% if @workout.exercises.count > 0 %>
+    <ol>
       <% @workout.exercises.each do |exercise| %>
         <div class="">
           <p><b>Exercise:</b> <a href="/exercises/<%= exercise.id %>"><%= exercise.name %></a></p>
-            <% if exercise.user_id == current_user.id %>
-              <p><a href="/exercises/<%= exercise.id %>/edit">Edit this exercise</a>.</p>
-            <% end %>
           <p>Body Part: <%= exercise.body_part %></p>
           <p>Weight Type: <%= exercise.weight_type %></p>
         </div>
         <div class="">
-            <table>
-              <tr>
-                <th>Set #</th>
-                <th>Weight</th>
-                <th>Reps</th>
-              </tr>
               <% @num = 1 %>
               <% exercise.exercise_sets.each do |set| %>
+              <table>
+                <tr>
+                  <th>Set #</th>
+                  <th>Weight</th>
+                  <th>Reps</th>
+                </tr>
                     <tr>
                     <td><%= @num %></td>
                     <td><%= set.weight %></td>
@@ -35,12 +33,13 @@
                 <% @num += 1 %>
               <% end %>
             </table>
-          <br>
+            <br>
         </div>
         <div class="">
             <p><a href="/exercises/<%= exercise.id %>/sets/edit">Add/Edit Sets</a></p>
         </div>
       <% end %>
+    </ol>
     <% else %>
       <div class="">
         <p>You have no exercises added to this workout. Get started <a href="/workouts/new">here</a>.</p>
