@@ -1,23 +1,21 @@
-<% if @no_login_message && @no_login_message != ""%>
-  <div class="login_signup_error">
-    <%= @no_login_message %>
-  </div>
-<% end %>
-
 <% if @login_error%>
-  <div class="login_signup_error">
-    <%= @login_error %>
+  <div class="alert alert-danger">
+    <strong>Oops! We hit a snag trying to log you in. Please check your credentials and try again. </strong>
   </div>
 <% end %>
 
-<h1>Login To FitTracker</h1>
+<div class="container">
 
-<div class="">
-  <form class="" action="/login" method="post">
-    <p>Username: <input type="text" name="username"></p>
-    <p>Password: <input type="password" name="password"></p>
-    <input type="submit" value="Log In">
+  <form class="form-signin" action="/login" method="post">
+    <h2 class="form-signin-heading">Please Log In:</h2>
+    <label for="inputEmail" class="sr-only">Username</label>
+    <input type="username" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
   </form>
+
 </div>
 
 <div style="margin-top: 20px">

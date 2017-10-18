@@ -1,24 +1,29 @@
-<% if @signup_error%>
-  <div class="login_signup_error">
-    There was a problem signing up your account. Please make sure you include all fields.
-  </div>
-<% end %>
-
 <% if @signup_duplication_error%>
-  <div class="login_signup_error">
-    An account with that username or e-mail already exists. Please login to continue.
+  <div class="alert alert-danger">
+    <strong>An account with that username or e-mail already exists. Please login to continue.</strong>
   </div>
 <% end %>
 
-<h1>Sign Up For FitTracker</h1>
+<div class="container">
 
-<form action="/signup" method="post">
-  <p>Username: <input type="text" name="username"></p>
-  <p>
-    First Name: <input type="text" name="first_name"></p>
-    Last Name: <input type="text" name="last_name">
-  </p>
-  <p>E-mail Address: <input type="text" name="email"></p>
-  <p>Password: <input type="password" name="password"></p>
-  <input type="submit" name="" value="Sign Up">
-</form>
+  <form class="form-signin" action='/signup' method="post">
+    <h2 class="form-signin-heading">Sign up:</h2>
+    <label for="inputUsername" class="sr-only">Username</label>
+    <input name="username" type="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <label for="inputFirstName" class="sr-only">First Name</label>
+    <input name="first_name" type="text" id="inputFirstName" class="form-control" placeholder="First Name" required>
+    <label for="inputLastName" class="sr-only">Last Name</label>
+    <input name="last_name" type="text" id="inputLastName" class="form-control" placeholder="Last Name" required>
+    <label for="inputEmail" class="sr-only">Email</label>
+    <input name="email" type="text" id="inputEmail" class="form-control" placeholder="Email" required>
+    <br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  </form>
+
+</div>
+
+<div class="">
+  Already a member? <a href="/login">Log In</a>.
+</div>

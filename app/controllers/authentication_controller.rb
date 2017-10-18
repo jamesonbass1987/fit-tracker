@@ -11,12 +11,8 @@ class AuthenticationController < ApplicationController
 
   post '/signup' do
 
-    #check for any empty fields
-    if nil_submission?
-      @signup_error = true
-      erb :"/users/signup"
     #check for any existing users that match that username or email
-    elsif user_exists?
+    if user_exists?
       @signup_duplication_error = true
       erb :"/users/signup"
     #create user if all conditions are met
@@ -28,8 +24,7 @@ class AuthenticationController < ApplicationController
   end
 
   get '/login' do
-    #set login error message if user attempts to visit a restricted page will not logged in
-    @no_login_message = session[:no_login_error_message]
+    #set login error message if user attempts to visit a restricted page while not logged in
 
     if !logged_in?
       erb :'/users/login'
@@ -40,7 +35,6 @@ class AuthenticationController < ApplicationController
 
   post '/login' do
     user = User.find_by(username: params[:username])
-    session[:login_error_message].clear unless session[:login_error_message].nil?
 
     if user && user.authenticate(params[:password])
       #set session id to user id
@@ -48,7 +42,7 @@ class AuthenticationController < ApplicationController
       redirect to "/users/#{user.username}"
     else
       #set login error message, and reload login page
-      @login_error = "There was a problem logging you in. Please check your credentials and try again."
+      @login_error = true
       erb :'/users/login'
     end
   end
