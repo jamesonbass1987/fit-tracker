@@ -8,6 +8,10 @@ class ExerciseSetsController < ApplicationController
     @exercise = Exercise.find_by_id(params[:exercise_id])
     @sets = ExerciseSet.all.find_all{|set| set.user_id == @user.id && set.exercise_id == @exercise.id}
     @set_num = 0
+
+    #parse url to retrieve workout id to redirect user to after editing set
+    @workout_id ||= request.url.split("workout_id=").last
+
     #check if exercise is not part of the stock group or if it doesn't belong to current_user, if so, redirects to profile page
     exercise_set_owner_check
 
@@ -27,6 +31,10 @@ class ExerciseSetsController < ApplicationController
     @sets = ExerciseSet.all.find_all{|set| set.user_id == @user.id && set.exercise_id == @exercise.id}
     @units = @exercise.exercise_sets.where("user_id = '#{current_user.id}'")
     @set_num = 0
+
+    #parse url to retrieve workout id to redirect user to after editing set
+    @workout_id = request.url.split("workout_id=").last
+
     #check if exercise is not part of the stock group or if it doesn't belong to current_user, if so, redirects to profile page
     exercise_set_owner_check
 
@@ -39,24 +47,24 @@ class ExerciseSetsController < ApplicationController
 
   post '/exercises/:exercise_id/sets' do
 
-    #check for blank values
-    if params[:weight] == "" || params[:reps] == ""
-      redirect to '/exercises/:exercise_id/sets/new'
-    end
-
     #set a set variable based on input params and save to DB
     @set = ExerciseSet.new(:weight => params[:weight], :measurement => params[:measurement], :reps => params[:reps])
     @set.save
+
+    #parse url to retrieve workout id to redirect user to after editing set
+    @workout_id = params[:workout_id] unless params[:workout_id].include?("http://")
+    @workout_id ||= 'null'
 
     #set variables for user & exercise
     @user = current_user
     @exercise = Exercise.find_by_id(params[:exercise_id])
 
+
     #assign set to user and exercise
     @user.exercise_sets << @set
     @exercise.exercise_sets << @set
 
-    redirect to "/exercises/#{@exercise.id}/sets"
+    redirect to "/exercises/#{@exercise.id}/sets/edit?workout_id=#{@workout_id}"
 
   end
 
@@ -66,9 +74,12 @@ class ExerciseSetsController < ApplicationController
     #set variables for user, exercise and sets
     @user = current_user
     @exercise = Exercise.find_by_id(params[:exercise_id])
-    @sets = ExerciseSet.all.find_all{|set| set.user_id == @user.id && set.exercise_id == @exercise.id}
+    @sets ||= ExerciseSet.all.find_all{|set| set.user_id == @user.id && set.exercise_id == @exercise.id}
     @set_num = 0
     @units = @exercise.exercise_sets.where("user_id = '#{current_user.id}'")
+
+    #parse url to retrieve workout id to redirect user to after editing set
+    @workout_id = request.url.split("workout_id=").last
 
     #check if exercise is not part of the stock group or if it doesn't belong to current_user, if so, redirects to profile page
     exercise_set_owner_check
@@ -78,7 +89,7 @@ class ExerciseSetsController < ApplicationController
 
     #check to see if sets are available to edit, otherwise redirect to new set creation
     if @sets.empty?
-      redirect to "/exercises/#{@exercise.id}/sets/new"
+      redirect to "/exercises/#{@exercise.id}/sets/new?workout_id=#{@workout_id}"
     end
 
     erb :'/exercise_sets/edit'
@@ -86,15 +97,14 @@ class ExerciseSetsController < ApplicationController
 
   patch '/exercises/:exercise_id/sets' do
 
-    #check for blank values
-    if params[:weight] == "" || params[:reps] == ""
-      redirect to '/exercises/:exercise_id/sets/new'
-    end
-
     #set variables for user, exercise, and sets
     @user = current_user
     @exercise = Exercise.find_by_id(params[:exercise_id])
     @sets = ExerciseSet.all.find_all{|set| set.user_id == @user.id && set.exercise_id == @exercise.id}
+
+    #parse url to retrieve workout id to redirect user to after editing set
+
+    @workout_id = params[:workout_id].keys.first
 
     #update sets based on new weight and rep params
     set_num = 1
@@ -105,7 +115,11 @@ class ExerciseSetsController < ApplicationController
       set_num += 1
     end
 
-    redirect to "/exercises/#{@exercise.id}/sets"
+    if @workout_id
+      redirect to "/workouts/#{@workout_id}"
+    else
+      redirect to "/exercise/#{@exercise.id}"
+    end
   end
 
   delete '/exercises/:exercise_id/sets/delete' do
@@ -113,18 +127,18 @@ class ExerciseSetsController < ApplicationController
     #set variables for user, exercise, and sets, and set to delete
     user = current_user
     exercise = Exercise.find_by_id(params[:exercise_id])
-    sets = ExerciseSet.all.find_all{|set| set.user_id == user.id && set.exercise_id == exercise.id}
-    set_val = params[:exercise_set].key("Delete")
+    sets = ExerciseSet.all.find_all{|set| set.user_id == current_user.id && set.exercise_id == exercise.id}
+
+    #parse url to retrieve workout id to redirect user to after editing set
+    @workout_id = params[:workout_id].keys.first
 
     #find array value of set to delete
-    delete_set = sets[set_val.to_i - 1]
+    delete_set = sets[params[:set_num].to_i - 1]
 
     #validate current user is creator of exercise
-    if current_user.id == exercise.user_id
-      delete_set.destroy
-    end
+    delete_set.destroy
 
-    redirect to "/exercises/#{exercise.id}/sets"
+    redirect to "/exercises/#{exercise.id}/sets/edit?workout_id=#{@workout_id}"
   end
 
 

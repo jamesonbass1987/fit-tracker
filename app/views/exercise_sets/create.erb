@@ -1,25 +1,13 @@
-<div class="">
-  <h1><%= @exercise.name %></h1>
-</div>
+<div class="container">
+  <h1><strong><%= @exercise.name %></strong></h1>
 
-<% if !@units.nil? && @units != [] %>
-  <div class="">
-    <h4>Units: <%= @units.first.measurement %></h3>
-  </div>
-<% end %>
-
-<br>
-<div class="">
-  <form class="" action="/exercises/<%= @exercise.id %>/sets" method="post">
-
-      <table>
+  <form action="/exercises/<%= @exercise.id %>/sets?workout_id=<%= @workout_id %>" method="post">
+      <table class="table">
         <tr>
           <th>Set #</th>
           <th>Weight</th>
           <th>Reps</th>
-          <% if @units.nil? || @units == [] %>
           <th>Units</th>
-          <% end %>
         </tr>
       <% if @sets.count > 0 %>
         <% @sets.each do |set| %>
@@ -32,30 +20,16 @@
       <% end %>
         <tr>
           <td><%=@set_num += 1%></td>
-          <td><input type="text" name="weight" value="0"></td>
-          <td><input type="text" name="reps" value="0"></td>
-          <% if !@units.nil? && @units != [] %>
-          <td><input type="hidden" name="measurement" value="<%= @units.first.measurement %>"></td>
-          <% else %>
+          <td><input type="number" min="1" step="1" name="weight" required></td>
+          <td><input type="number" min="1" step="1" name="reps" required></td>
           <td>
-            <select name="measurement">
-              <option value="Kg"> Kg</option>
-              <option value="Lbs"> Lbs</option>
+            <select class="form-control" name="measurement">
+              <option value="Lbs">Lbs</option>
+              <option value="Kg">Kg</option>
             </select>
           </td>
-          <% end %>
         </tr>
       </table>
-      <br>
-      <input type="submit" value="Add Set">
+      <button type="submit" class="btn btn-primary" name="">Add Set</button>
   </form>
-</div>
-
-
-<div class="">
-  <p><a href="/exercises/<%= @exercise.id %>/sets">Click here</a> to go back.</p>
-</div>
-
-<div class="">
-  <small>Currently logged in as <%= current_user.username %>. Not you? <a href="/logout">Log out</a>, or <a href="/users/<%= current_user.username %>">click here</a> to return to your profile.</small>
 </div>

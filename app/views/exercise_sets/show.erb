@@ -1,54 +1,38 @@
-<div class="">
-  <h1><%= @exercise.name %></h1>
-</div>
+<div class="container">
+  <h1><strong><%= @exercise.name %></strong></h1>
 
-<div class="">
-  <p>Weight Type: <%= @exercise.weight_type %></p>
-  <p>Body Part: <%= @exercise.body_part %></p>
-</div>
+  <div class="">
+    <p><strong>Weight Type:</strong>&nbsp;<%= @exercise.weight_type %></p>
+    <p><strong>Body Part:</strong>&nbsp;<%= @exercise.body_part %></p>
+  </div>
 
-<% if @sets.count == 0 %>
-<div class="">
-  <p>You currently have no sets added to this exercise. <a href="/exercises/<%= @exercise.id %>/sets/new">Click here</a> to get started.</p>
-</div>
-<% end %>
+  <% if @sets.count == 0 %>
+  <div class="alert alert-info">
+    <strong>No sets have been added yet!</strong> <a href="/exercises/<%= @exercise.id %>/sets/new">Click here to get started.</a>
+  </div>
+  <% else %>
+    <table class="table table-striped">
+      <tr>
+        <th>Set #</th>
+        <th>Weight (<%= @sets.first.measurement %>)</th>
+        <th>Reps</th>
+      </tr>
+      <% @sets.each do |set| %>
+          <tr>
+            <td><%= @set_num += 1 %> </td>
+            <td><%= set.weight %></td>
+            <td><%= set.reps %></td>
+          </tr>
+      <% end %>
+    </table>
 
-<% if @sets.count > 0 %>
-
-<div class="">
-  <p><a href="/exercises/<%= @exercise.id %>/sets/edit">Edit Sets</a></p>
-</div>
-
-  <table>
-    <tr>
-      <th>Set #</th>
-      <th>
-        <% if @sets.first.measurement %>
-          Weight (<%= @sets.first.measurement %>)
-        <% else %>
-          Weight
-        <% end %>
-      </th>
-      <th>Reps</th>
-    </tr>
-    <% @sets.each do |set| %>
-        <tr>
-          <td><%= @set_num += 1 %> </td>
-          <td><%= set.weight %></td>
-          <td><%= set.reps %></td>
-        </tr>
+  <div class="">
+    <% if @workout_id %>
+      <a href="/exercises/<%= @exercise.id %>/sets/edit?workout_id=<%= @workout_id %>"><button type="button" class="btn btn-primary">Add/Edit Sets</button></a>
+    <% else %>
+      <a href="/exercises/<%= @exercise.id %>/sets/edit"><button type="button" class="btn btn-primary">Add/Edit Sets</button></a>
     <% end %>
-  </table>
+  </div>
+  <% end %>
 
-<div class="">
-  <a href="/exercises/<%= @exercise.id %>/sets/new">Click here</a> to add a set.</p>
-</div>
-<% end %>
-
-<div class="">
-  <p><a href="/exercises">Click here</a> to view all exercises.</p>
-</div>
-
-<div class="">
-  <small>Currently logged in as <%= current_user.username %>. Not you? <a href="/logout">Log out</a>, or <a href="/users/<%= current_user.username %>">click here</a> to return to your profile.</small>
 </div>

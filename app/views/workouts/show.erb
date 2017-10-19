@@ -7,7 +7,6 @@
     <div class="col-sm-12">
       <% @workout.exercises.each do |exercise| %>
         <div class="col-sm-12 panel panel-default">
-          <label class="checkbox-inline">
             <br>
             <p style=""><strong>Exercise:</strong>&nbsp;<%= exercise.name %>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -15,54 +14,56 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <strong>Weight Type:</strong>&nbsp;<%= exercise.weight_type %>
           </p>
-          </label>
         </div>
 
           <% if exercise.exercise_sets.count > 0 %>
-            <div class="">
-                  <% @num = 1 %>
-                  <table class="table table-striped">
-                    <tr>
-                      <th>Set #</th>
-                      <th>Weight</th>
-                      <th>Reps</th>
+          <div class="">
+                <% @num = 1 %>
+                <table class="table table-striped">
+                  <tr>
+                    <th>Set #</th>
+                    <th>Weight</th>
+                    <th>Reps</th>
+                  </tr>
+                  <% exercise.exercise_sets.each do |set| %>
+                      <tr>
+                      <td><%= @num %></td>
+                      <td><%= set.weight %></td>
+                      <td><%= set.reps %></td>
                     </tr>
-                    <% exercise.exercise_sets.each do |set| %>
-                        <tr>
-                        <td><%= @num %></td>
-                        <td><%= set.weight %></td>
-                        <td><%= set.reps %></td>
-                      </tr>
-                    <% @num += 1 %>
-                  <% end %>
-                </table>
-                <br>
-              <a href="/exercises/<%= exercise.id %>/sets/edit"><button class="btn btn-success">Add/Edit Sets</button></a>
-            </div>
-            <br>
+                  <% @num += 1 %>
+                <% end %>
+              </table>
+              <br>
+              <a href="/exercises/<%= exercise.id %>/sets?workout_id=<%=@workout.id%>" target="_blank"><button class="btn btn-primary">View Exercise</button></a>
+              <a href="/exercises/<%= exercise.id %>/sets/edit?workout_id=<%=@workout.id%>"><button class="btn btn-success">Add/Edit Sets</button></a>
+          </div>
+          <br>
           <% else %>
           <div class="alert alert-info">
-              You have not added any sets to this exercise. <a href="/exercises/<%= exercise.id %>/sets/edit"><strong>Click here to get started.</strong></a>
+              You have not added any sets to this exercise. <a href="/exercises/<%= exercise.id %>/sets/edit?workout_id=<%=@workout.id%>"><strong>Click here to get started.</strong></a>
+          </div>
+          <div class="">
+            <a href="/exercises/<%= exercise.id %>" target="_blank"><button class="btn btn-primary">View Exercise</button></a>
+            <br><br>
           </div>
           <% end %>
         <% end %>
-      <ol>
-      </ol>
     <% else %>
     <div class="alert alert-info">
-        You have not added any exercises to this workout. <a href="/workouts/<%= @workout.id %>/edit"><strong>Click here to get started.</strong></a>
+        You have not added any exercises to this workout. <a href="/workouts/<%= @workout.id %>/edit?workout_id=<%=@workout.id%>"><strong>Click here to get started.</strong></a>
     </div>
     <% end %>
+    </div>
+
+
+    <div class="container">
+      <form id=deleteForm action="/workouts/<%= @workout.id %>/delete" method="post">
+        <input id="hidden" type="hidden" name="_method" value="delete">
+      </form>
+
+      <a href="/workouts/<%= @workout.id %>/edit?workout_id=<%=@workout.id%>"><button class="btn btn-success">Edit Workout</button></a>
+      <button type="submit" form="deleteForm" class="btn btn-danger">Delete Workout</button>
+    </div>
   </div>
-
-
-  <div class="">
-    <form id=deleteForm action="/workouts/<%= @workout.id %>/delete" method="post">
-      <input id="hidden" type="hidden" name="_method" value="delete">
-    </form>
-
-    <a href="/workouts/<%= @workout.id %>/edit"><button class="btn btn-primary">Edit Workout</button></a>
-    <button type="submit" form="deleteForm" class="btn btn-danger">Delete Workout</button>
-  </div>
-
 </div>

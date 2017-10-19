@@ -88,7 +88,7 @@ class ExercisesController < ApplicationController
     #save to db
     @exercise.save
 
-    redirect to :"/exercises/#{@exercise.id}"
+    redirect to :"/exercises"
 
   end
 

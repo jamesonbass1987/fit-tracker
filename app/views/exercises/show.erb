@@ -4,13 +4,18 @@
   <p><strong>Body Part:</strong> <%= @exercise.body_part %></p>
   <p><strong>Description:</strong> <%= @exercise.description %></p>
 
-<% if @exercise.user_id == current_user.id %>
+  <% if @exercise.user_id == current_user.id %>
+      <div class="btn-group">
+        <form action="/exercises/<%= @exercise.id %>/delete" method="post">
+          <input id="hidden" type="hidden" name="_method" value="delete">
+          <a href="/workouts"><button type="button" class="btn btn-primary">Add To Workout</button></a>
+          <a href="/exercises/<%= @exercise.id %>/edit"><button type="button" class="btn btn-warning">Edit Exercise</button></a>
+          <button type="submit" class="btn btn-danger">Delete</button>
+      </div>
+    </form>
+  <% else %>
     <div class="btn-group">
-      <form action="/exercises/<%= @exercise.id %>/delete" method="post">
-        <input id="hidden" type="hidden" name="_method" value="delete">
-        <a href="/workouts"><button type="button" class="btn btn-primary">Add To Workout</button></a>
-        <a href="/exercises/<%= @exercise.id %>/edit"><button type="button" class="btn btn-warning">Edit Exercise</button></a>
-        <button type="submit" class="btn btn-danger">Delete</button>
+      <a href="/workouts"><button type="button" class="btn btn-primary">Add To Workout</button></a>
     </div>
-  </form>
-<% end %>
+  <% end %>
+</div>
