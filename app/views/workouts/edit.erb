@@ -20,26 +20,32 @@
       <label for="description">Description:</label>
       <textarea name="description" class="form-control" form="editForm"; rows="6" cols="50" required><%= @workout.description %></textarea>
     </div>
-    <div class="col-sm-12">
+    <div class="container-fluid">
       <h3><strong>Current Exercises:</strong></h3>
-      <% @workout.exercises.each do |exercise| %>
-        <div class="col-sm-12 panel panel-default">
-          <label class="checkbox-inline">
-            <br>
-            <p style=""><strong><%= exercise.name %></strong>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <strong>Body Part:</strong>&nbsp;<%= exercise.body_part %>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <strong>Weight Type:</strong>&nbsp;<%= exercise.weight_type %>
-          </p>
-            <p><strong>Description:&nbsp;</strong><%= exercise.description %></p>
-            <p style="padding-left: 1.5em"><input type="checkbox" name="[exercise][current_exercises][]" value="<%= exercise.id %>" class="checkbox-inline" style="">Remove</p>
-          </label>
-        </div>
+      <% if @workout.exercises.count > 0 %>
+        <% @workout.exercises.each do |exercise| %>
+          <div class="col-sm-12 panel panel-default">
+            <label class="checkbox-inline">
+              <br>
+              <p style=""><strong><%= exercise.name %></strong>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <strong>Body Part:</strong>&nbsp;<%= exercise.body_part %>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <strong>Weight Type:</strong>&nbsp;<%= exercise.weight_type %>
+            </p>
+              <p><strong>Description:&nbsp;</strong><%= exercise.description %></p>
+              <p style="padding-left: 1.5em"><input type="checkbox" form="editForm" name="[exercise][current_exercises][]" value="<%= exercise.id %>" class="checkbox-inline" style="">Remove</p>
+            </label>
+          </div>
+        <% end %>
+      <% else %>
+      <div class="alert alert-info">
+          <strong>You have not added any exercises to this workout.</strong> Get started by adding exercises below.</a>
+      </div>
       <% end %>
     </div>
-    <h3><strong>Exercises:</strong></h3>
     <div class="container-fluid">
+      <h3><strong>Exercises:</strong></h3>
       <h4><strong>Legs</strong></h4>
       <br>
       <% @legs.each do |exercise| %>
@@ -51,7 +57,7 @@
                   <th><p style=""><img src="/images/weightlifting-icon-legs.png" class="img-responsive center-block" style="width:40%;" alt=""></p></th>
                 </tr>
                 <tr>
-                  <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
+                  <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" form="editForm" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
                 </tr>
                 <tr>
                   <td style="text-align: center; vertical-align: middle;"><p><strong><%= exercise.name %></strong></td></p>
@@ -77,7 +83,7 @@
                 <th><p style=""><img src="/images/weightlifting-icon-chest.png" class="img-responsive center-block" style="width: 40%" alt=""></p></th>
               </tr>
               <tr>
-                <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
+                <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" form="editForm" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
               </tr>
               <tr>
                 <td style="text-align: center; vertical-align: middle;"><p><strong><%= exercise.name %></strong></td></p>
@@ -103,7 +109,7 @@
                 <th><p style=""><img src="/images/weightlifting-icon-shoulders.png" class="img-responsive center-block" style="width:45%;" alt=""></p></th>
               </tr>
               <tr>
-                <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
+                <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" form="editForm" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
               </tr>
               <tr>
                 <td style="text-align: center; vertical-align: middle;"><p><strong><%= exercise.name %></strong></td></p>
@@ -129,7 +135,7 @@
                 <th><p style=""><img src="/images/weightlifting-icon-arms.png" class="img-responsive center-block" style="width:40%;" alt=""></p></th>
               </tr>
               <tr>
-                <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
+                <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" form="editForm" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
               </tr>
               <tr>
                 <td style="text-align: center; vertical-align: middle;"><p><strong><%= exercise.name %></strong></td></p>
@@ -155,7 +161,7 @@
                 <th><p style=""><img src="/images/weightlifting-icon-back.png" class="img-responsive center-block" style="width:40%;" alt=""></p></th>
               </tr>
               <tr>
-                <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
+                <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="exercise[id][]" form="editForm" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
               </tr>
               <tr>
                 <td style="text-align: center; vertical-align: middle;"><p><strong><%= exercise.name %></strong></td></p>
@@ -179,7 +185,7 @@
                 <th><p style=""><img src="/images/weightlifting-icon-abs.png" class="img-responsive center-block" style="width:45%;" alt=""></p></th>
               </tr>
               <tr>
-                <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
+                <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="exercise[id][]" form="editForm" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
               </tr>
               <tr>
                 <td style="text-align: center; vertical-align: middle;"><p><strong><%= exercise.name %></strong></td></p>
@@ -191,20 +197,14 @@
       <% end %>
     </div>
     <br>
-    <button type="submit" form="editForm" class="btn btn-primary">Edit Workout</button>
+    <button type="submit" form="editForm" class="btn btn-primary">Save</button>
+    <button type="submit" form="deleteForm" class="btn btn-danger">Delete Workout</button>
   </form>
 
   <br></br>
 
-  <div class="">
-    <form class="" action="/workouts/<%= @workout.id %>/delete" method="post">
-      <input id="hidden" type="hidden" name="_method" value="delete">
-      <input type="submit" value="Delete">
-    </form>
-  </div>
-
   <br></br>
   <div class="alert alert-info">
-    <strong>Don't see the one you are looking for?</strong> <a href="/exercises/new">Click here</a> to create a new exercise.
+    <strong>Don't see the one you are looking for?</strong> <a href="/exercises/new">Click here to create a new exercise.</a>
   </div>
 </div>

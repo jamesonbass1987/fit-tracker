@@ -1,59 +1,68 @@
-  <div class="">
-    <h1>Workout: <%= @workout.name %></h1>
-  </div>
-
-  <div class="">
-    <p>Description: <%= @workout.description %></p>
-  </div>
-
+<div class="container">
+  <h1><strong><%= @workout.name %></strong></h1>
+  <p><strong>Description:</strong> <%= @workout.description %></p>
 
   <div class="">
     <% if @workout.exercises.count > 0 %>
-    <ol>
+    <div class="col-sm-12">
       <% @workout.exercises.each do |exercise| %>
-        <div class="">
-          <p><b>Exercise:</b> <a href="/exercises/<%= exercise.id %>"><%= exercise.name %></a></p>
-          <p>Body Part: <%= exercise.body_part %></p>
-          <p>Weight Type: <%= exercise.weight_type %></p>
-        </div>
-        <div class="">
-              <% @num = 1 %>
-              <% exercise.exercise_sets.each do |set| %>
-              <table>
-                <tr>
-                  <th>Set #</th>
-                  <th>Weight</th>
-                  <th>Reps</th>
-                </tr>
-                    <tr>
-                    <td><%= @num %></td>
-                    <td><%= set.weight %></td>
-                    <td><%= set.reps %></td>
-                  </tr>
-                <% @num += 1 %>
-              <% end %>
-            </table>
+        <div class="col-sm-12 panel panel-default">
+          <label class="checkbox-inline">
             <br>
+            <p style=""><strong>Exercise:</strong>&nbsp;<%= exercise.name %>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <strong>Body Part:</strong>&nbsp;<%= exercise.body_part %>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <strong>Weight Type:</strong>&nbsp;<%= exercise.weight_type %>
+          </p>
+          </label>
         </div>
-        <div class="">
-            <p><a href="/exercises/<%= exercise.id %>/sets/edit">Add/Edit Sets</a></p>
-        </div>
-      <% end %>
-    </ol>
+
+          <% if exercise.exercise_sets.count > 0 %>
+            <div class="">
+                  <% @num = 1 %>
+                  <table class="table table-striped">
+                    <tr>
+                      <th>Set #</th>
+                      <th>Weight</th>
+                      <th>Reps</th>
+                    </tr>
+                    <% exercise.exercise_sets.each do |set| %>
+                        <tr>
+                        <td><%= @num %></td>
+                        <td><%= set.weight %></td>
+                        <td><%= set.reps %></td>
+                      </tr>
+                    <% @num += 1 %>
+                  <% end %>
+                </table>
+                <br>
+              <a href="/exercises/<%= exercise.id %>/sets/edit"><button class="btn btn-success">Add/Edit Sets</button></a>
+            </div>
+            <br>
+          <% else %>
+          <div class="alert alert-info">
+              You have not added any sets to this exercise. <a href="/exercises/<%= exercise.id %>/sets/edit"><strong>Click here to get started.</strong></a>
+          </div>
+          <% end %>
+        <% end %>
+      <ol>
+      </ol>
     <% else %>
-      <div class="">
-        <p>You have no exercises added to this workout. Get started <a href="/workouts/new">here</a>.</p>
-      </div>
+    <div class="alert alert-info">
+        You have not added any exercises to this workout. <a href="/workouts/<%= @workout.id %>/edit"><strong>Click here to get started.</strong></a>
+    </div>
     <% end %>
   </div>
 
-  <div class="">
-    <p><a href="/workouts/<%= @workout.id %>/edit">Click here</a> to edit this workout.</p>
-  </div>
 
   <div class="">
-    <form class="" action="/workouts/<%= @workout.id %>/delete" method="post">
+    <form id=deleteForm action="/workouts/<%= @workout.id %>/delete" method="post">
       <input id="hidden" type="hidden" name="_method" value="delete">
-      <input type="submit" value="Delete">
     </form>
+
+    <a href="/workouts/<%= @workout.id %>/edit"><button class="btn btn-primary">Edit Workout</button></a>
+    <button type="submit" form="deleteForm" class="btn btn-danger">Delete Workout</button>
   </div>
+
+</div>
