@@ -11,6 +11,7 @@ class ExercisesController < ApplicationController
     @back = Exercise.all.find_all { |exercise| exercise.body_part == "Back" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
     @abdominals = Exercise.all.find_all { |exercise| exercise.body_part == "Abdominals" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
 
+
     erb :"/exercises/index"
   end
 

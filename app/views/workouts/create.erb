@@ -1,6 +1,5 @@
 <div class="container">
   <h1><strong>Create Workout</strong></h1>
-
   <form action="/workouts" method="post">
 
     <div class="form-group">
@@ -13,146 +12,23 @@
     </div>
     <h3><strong>Exercises:</strong></h3>
     <p>Select checkboxes to add exercise to workout. Click on exercise name for more info.</p>
-    <div class="container-fluid">
-      <h4><strong>Legs</strong></h4>
-      <br>
-      <% @legs.each do |exercise| %>
-        <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 ">
-          <div class="panel panel-default" style="position: relative;">
-            <label class="checkbox-inline">
+    <div class="col-md-12">
+      <% @exercises.each do |exercise| %>
+          <div class="col-md-3 panel panel-default">
+            <label class="form-check-label">
               <br>
-              <table style="width:100%; position: relative; right: 4%">
-                <tr style="line-height: 80%">
-                  <th><p style=""><img src="/images/weightlifting-icon-legs.png" class="img-responsive center-block" style="width:40%;" alt=""></p></th>
-                </tr>
-                <tr>
-                  <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
-                </tr>
-              </table>
+                <img src="<%= exercise.img_tag %>" class="img-responsive center-block" style="width:37%" alt="">
+              <br>
+              <div class="" style="">
+                <p><span class="label <%= exercise.body_part_tag %> center-block" style="line-height: 0.9em; max-width: 60%; padding: 5px"><%= exercise.body_part %></span></p>
+                <span class="label <%= exercise.weight_type_tag %> center-block"; style="line-height: 0.9em; max-width: 60%; padding: 5px" ><%= exercise.weight_type %></span>
+              </div>
+              <div class="" style="text-align: center; padding-top: 10px">
+                  <p style=""><input class="form-check-input" type="checkbox" value="">
+                  <strong><%= exercise.name %></strong></p>
+              </div>
             </label>
-            <panel>
-              <a href="/exercises/<%= exercise.id %>" target="_blank"><div class="panel-footer" style="text-align: center"><strong><%= exercise.name %></strong></div></a>
-            </panel>
           </div>
-        </div>
-      <% end %>
-    </div>
-    <div class="container-fluid">
-    <h4><strong>Chest</strong></h4>
-    <br>
-      <% @chest.each do |exercise| %>
-      <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 ">
-        <div class="panel panel-default" style="position: relative;">
-          <label class="checkbox-inline">
-            <br>
-            <table style="width:100%">
-              <tr style="line-height: 80%">
-                <th><p style=""><img src="/images/weightlifting-icon-chest.png" class="img-responsive center-block" style="width: 40%" alt=""></p></th>
-              </tr>
-              <tr>
-                <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
-              </tr>
-            </table>
-          </label>
-          <panel>
-            <a href="/exercises/<%= exercise.id %>" target="_blank"><div class="panel-footer" style="text-align: center"><strong><%= exercise.name %></strong></div></a>
-          </panel>
-        </div>
-      </div>
-      <% end %>
-    </div>
-    <div class="container-fluid">
-    <h4><strong>Shoulders<strong></h4>
-      <% @shoulders.each do |exercise| %>
-      <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 ">
-        <div class="panel panel-default" style="">
-          <label class="checkbox-inline" style="position: relative; right: 4%">
-            <table style="width:100%">
-              <tr style="line-height: 80%">
-                <th><br><p style=""><img src="/images/weightlifting-icon-shoulders.png" class="img-responsive center-block" style="width:45%;" alt=""></p></th>
-              </tr>
-              <tr>
-                <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
-              </tr>
-            </table>
-          </label>
-          <panel>
-            <a href="/exercises/<%= exercise.id %>" target="_blank"><div class="panel-footer" style="text-align: center"><strong><%= exercise.name %></strong></div></a>
-          </panel>
-        </div>
-      </div>
-      <% end %>
-    </div>
-    <div class="container-fluid">
-    <h4><strong>Arms<strong></h4>
-    <br>
-      <% @arms.each do |exercise| %>
-      <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 ">
-        <div class="panel panel-default" style="position: relative;">
-          <label class="checkbox-inline">
-            <br>
-            <table style="width:100%; position: relative; right: 4%">
-              <tr style="line-height: 80%">
-                <th><p style=""><img src="/images/weightlifting-icon-arms.png" class="img-responsive center-block" style="width:40%;" alt=""></p></th>
-              </tr>
-              <tr>
-                <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
-              </tr>
-            </table>
-          </label>
-          <panel>
-            <a href="/exercises/<%= exercise.id %>" target="_blank"><div class="panel-footer" style="text-align: center"><strong><%= exercise.name %></strong></div></a>
-          </panel>
-        </div>
-      </div>
-      <% end %>
-    </div>
-    <div class="container-fluid">
-    <h4><strong>Back<strong></h4>
-    <br>
-      <% @back.each do |exercise| %>
-      <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
-        <div class="panel panel-default" style="">
-          <label class="checkbox-inline">
-            <br>
-            <table style="width:100%; position: relative; right: 4%">
-              <tr style="line-height: 80%">
-                <th><p style=""><img src="/images/weightlifting-icon-back.png" class="img-responsive center-block" style="width:40%;" alt=""></p></th>
-              </tr>
-              <tr>
-                <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
-              </tr>
-            </table>
-          </label>
-          <panel>
-            <a href="/exercises/<%= exercise.id %>" target="_blank"><div class="panel-footer" style="text-align: center"><strong><%= exercise.name %></strong></div></a>
-          </panel>
-        </div>
-      </div>
-      <% end %>
-    </div>
-    <div class="container-fluid">
-    <h4><strong>Abdominals</strong></h4>
-    <br>
-      <% @abdominals.each do |exercise| %>
-      <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 ">
-        <div class="panel panel-default" style="position: relative;">
-          <label class="checkbox-inline">
-            <br>
-            <table style="width:100%; position: relative; right: 4%">
-              <tr style="line-height: 80%">
-                <th><p style=""><img src="/images/weightlifting-icon-abs.png" class="img-responsive center-block" style="width:45%;" alt=""></p></th>
-              </tr>
-              <tr>
-                <td style="text-align: center; vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="exercise[id][]" value="<%= exercise.id %>" class="checkbox-inline" style=""></td>
-              </tr>
-            </table>
-          </label>
-          <panel>
-            <a href="/exercises/<%= exercise.id %>" target="_blank"><div class="panel-footer" style="text-align: center"><%= exercise.name %></div></a>
-          </panel>
-        </div>
-      </div>
       <% end %>
     </div>
     <br>
