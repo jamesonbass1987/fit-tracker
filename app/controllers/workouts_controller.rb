@@ -67,12 +67,12 @@ class WorkoutsController < ApplicationController
     if !@workout.nil? && @workout && current_user.id == @workout.user_id
 
       #set instance variables based on exercise body part
-      @legs = Exercise.all.find_all { |exercise| exercise.body_part == "Legs" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
-      @chest = Exercise.all.find_all { |exercise| exercise.body_part == "Chest" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
-      @shoulders = Exercise.all.find_all { |exercise| exercise.body_part == "Shoulders" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
-      @arms = Exercise.all.find_all { |exercise| exercise.body_part == "Arms" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
-      @back = Exercise.all.find_all { |exercise| exercise.body_part == "Back" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
-      @abdominals = Exercise.all.find_all { |exercise| exercise.body_part == "Abdominals" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
+      @legs = Exercise.all.find_all { |exercise| exercise.body_part == "Legs" && (exercise.user_id.nil? || exercise.user_id == current_user.id) && !@workout.exercises.include?(exercise)}
+      @chest = Exercise.all.find_all { |exercise| exercise.body_part == "Chest" && (exercise.user_id.nil? || exercise.user_id == current_user.id) && !@workout.exercises.include?(exercise)}
+      @shoulders = Exercise.all.find_all { |exercise| exercise.body_part == "Shoulders" && (exercise.user_id.nil? || exercise.user_id == current_user.id) && !@workout.exercises.include?(exercise)}
+      @arms = Exercise.all.find_all { |exercise| exercise.body_part == "Arms" && (exercise.user_id.nil? || exercise.user_id == current_user.id) && !@workout.exercises.include?(exercise)}
+      @back = Exercise.all.find_all { |exercise| exercise.body_part == "Back" && (exercise.user_id.nil? || exercise.user_id == current_user.id) && !@workout.exercises.include?(exercise)}
+      @abdominals = Exercise.all.find_all { |exercise| exercise.body_part == "Abdominals" && (exercise.user_id.nil? || exercise.user_id == current_user.id) && !@workout.exercises.include?(exercise)}
 
       erb :"/workouts/edit"
     else

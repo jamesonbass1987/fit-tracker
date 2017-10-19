@@ -25,7 +25,7 @@
       <input type="text" class="form-control" form="editForm" name="name" value="<%= @exercise.name %>" required autofocus>
     </div>
     <div class="form-group">
-      <label for="name">Description:</label>
+      <label for="description">Description:</label>
       <textarea name="description" class="form-control" form="editForm"; rows="6" cols="50" required><%= @exercise.description %></textarea>
     </div>
     <div class="form-group">
@@ -38,8 +38,8 @@
       </select>
     </div>
     <div class="form-group">
-      <label for="weight_type">Body Part:</label>
-      <select name="weight_type" class="form-control" form="editForm">
+      <label for="body_part">Body Part:</label>
+      <select name="body_part" class="form-control" form="editForm">
         <option value="Legs" <%='selected' if @exercise.weight_type.include?('Legs') %>>Legs</option>
         <option value="Chest" <%='selected' if @exercise.weight_type.include?('Chest') %>>Chest</option>
         <option value="Shoulders" <%='selected' if @exercise.weight_type.include?('Shoulders') %>>Shoulders</option>
