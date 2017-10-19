@@ -10,8 +10,8 @@ class WorkoutsController < ApplicationController
   get '/workouts/new' do
     logged_in_redirect_check
 
-    #set instance variables based on exercise body part
-    @exercises = Exercise.all.find_all{|exercise| exercise.user_id.nil? || exercise.user_id == current_user.id }
+    #set instance variables for user exercises, ordering by body_part for display on view page
+    @exercises = Exercise.order(:body_part).find_all{|exercise| exercise.user_id == current_user.id }
 
     #set tag values for img tag, body_part and weight_type for display on page via attr accessor attributes so as to not persist to db
     @exercises.each do |exercise|
@@ -87,13 +87,34 @@ class WorkoutsController < ApplicationController
 
     if !@workout.nil? && @workout && current_user.id == @workout.user_id
 
-      #set instance variables based on exercise body part
-      @legs = Exercise.all.find_all { |exercise| exercise.body_part == "Legs" && (exercise.user_id.nil? || exercise.user_id == current_user.id) && !@workout.exercises.include?(exercise)}
-      @chest = Exercise.all.find_all { |exercise| exercise.body_part == "Chest" && (exercise.user_id.nil? || exercise.user_id == current_user.id) && !@workout.exercises.include?(exercise)}
-      @shoulders = Exercise.all.find_all { |exercise| exercise.body_part == "Shoulders" && (exercise.user_id.nil? || exercise.user_id == current_user.id) && !@workout.exercises.include?(exercise)}
-      @arms = Exercise.all.find_all { |exercise| exercise.body_part == "Arms" && (exercise.user_id.nil? || exercise.user_id == current_user.id) && !@workout.exercises.include?(exercise)}
-      @back = Exercise.all.find_all { |exercise| exercise.body_part == "Back" && (exercise.user_id.nil? || exercise.user_id == current_user.id) && !@workout.exercises.include?(exercise)}
-      @abdominals = Exercise.all.find_all { |exercise| exercise.body_part == "Abdominals" && (exercise.user_id.nil? || exercise.user_id == current_user.id) && !@workout.exercises.include?(exercise)}
+      #set instance variables for user exercises, ordering by body_part for display on view page
+      @exercises = Exercise.order(:body_part).find_all{|exercise| exercise.user_id == current_user.id && !@workout.exercises.include?(exercise) }
+
+      #set tag values for img tag, body_part and weight_type for display on page via attr accessor attributes so as to not persist to db
+      @exercises.each do |exercise|
+        case exercise.body_part
+        when "Legs"
+          exercise.body_part_tag = "label-primary"
+          exercise.img_tag = "/images/weightlifting-icon-legs.png"
+        when "Chest"
+          exercise.body_part_tag = "label-success"
+          exercise.img_tag = "/images/weightlifting-icon-chest.png"
+        when "Shoulders"
+          exercise.body_part_tag = "label-info"
+          exercise.img_tag = "/images/weightlifting-icon-shoulders.png"
+        when "Arms"
+          exercise.body_part_tag = "label-warning"
+          exercise.img_tag = "/images/weightlifting-icon-arms.png"
+        when "Back"
+          exercise.body_part_tag = "label-danger"
+          exercise.img_tag = "/images/weightlifting-icon-legs.png"
+        else
+          exercise.body_part_tag = "label-default"
+          exercise.img_tag = "/images/weightlifting-icon-abs.png"
+        end
+
+        exercise.weight_type_tag = "label-primary"
+      end
 
       erb :"/workouts/edit"
     else
@@ -102,6 +123,8 @@ class WorkoutsController < ApplicationController
   end
 
   patch '/workouts/:id' do
+
+    binding.pry
 
     #find workout and current user and set to instance variables
     workout = Workout.find_by_id(params[:id])

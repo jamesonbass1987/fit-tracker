@@ -19,6 +19,15 @@ class AuthenticationController < ApplicationController
     else
       user = User.create(:username => params["username"], :first_name => params["first_name"], :last_name => params["last_name"], :email => params["email"], :password => params["password"])
       session[:id] = user.id
+
+      #Load all stock exercises into user account
+      exercises = Exercise.all.select{|exercise| exercise.user_id == nil}
+      exercises.each do |exercise|
+        exercise_copy = exercise.dup
+        exercise_copy.save
+        user.exercises << exercise_copy
+      end
+
       redirect to "/users/#{user.username}"
     end
   end

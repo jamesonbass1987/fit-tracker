@@ -2,20 +2,36 @@
   <h1><strong><%= @exercise.name %></strong></h1>
   <p><strong>Weight Type:</strong> <%= @exercise.weight_type %></p>
   <p><strong>Body Part:</strong> <%= @exercise.body_part %></p>
-  <p><strong>Description:</strong> <%= @exercise.description %></p>
 
-  <% if @exercise.user_id == current_user.id %>
-      <div class="btn-group">
-        <form action="/exercises/<%= @exercise.id %>/delete" method="post">
-          <input id="hidden" type="hidden" name="_method" value="delete">
-          <a href="/workouts"><button type="button" class="btn btn-primary">Add To Workout</button></a>
-          <a href="/exercises/<%= @exercise.id %>/edit"><button type="button" class="btn btn-warning">Edit Exercise</button></a>
-          <button type="submit" class="btn btn-danger">Delete</button>
-      </div>
-    </form>
+  <% if @sets.empty? %>
+  <div class="alert alert-info">
+    <strong>No sets have been added yet!</strong>
+  </div>
   <% else %>
-    <div class="btn-group">
-      <a href="/workouts"><button type="button" class="btn btn-primary">Add To Workout</button></a>
-    </div>
+    <table class="table table-striped">
+      <tr>
+        <th>Set #</th>
+        <th>Weight (<%= @sets.first.units %>)</th>
+        <th>Reps</th>
+      </tr>
+      <% @sets.each do |set| %>
+          <tr>
+            <td><%= @set_num += 1 %> </td>
+            <td><%= set.weight %></td>
+            <td><%= set.reps %></td>
+          </tr>
+      <% end %>
+    </table>
   <% end %>
+
+  <div class="btn-group">
+    <form action="/exercises/<%= @exercise.id %>/delete" method="post">
+      <input id="hidden" type="hidden" name="_method" value="delete">
+      <a href="/workouts"><button type="button" class="btn btn-primary">Add To Workout</button></a>
+      <a href="/exercises/<%= @exercise.id %>/edit"><button type="button" class="btn btn-warning">Edit Exercise</button></a>
+      <a href="/exercises/<%= @exercise.id %>/sets/edit"><button type="button" class="btn btn-success">Add/Edit Sets</button></a>
+      <button type="submit" class="btn btn-danger">Delete</button>
+  </div>
+    </form>
+
 </div>

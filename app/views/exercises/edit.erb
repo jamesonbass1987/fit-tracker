@@ -2,7 +2,7 @@
 
 <% if @exercise_edit_error%>
   <div class="alert alert-danger">
-    <strong>There was an error editing your exercise.</strong> There may be another exercise with that name. Please check your information and resubmit.
+    <strong>Oops! That exercise already exists.&nbsp;<a href="/exercises/<%= @duplicate_exercise.id %>" target="_blank">Click here to check it out!</a></strong>
   </div>
 <% end %>
 
@@ -23,10 +23,6 @@
     <div class="form-group">
       <label for="name">Name:</label>
       <input type="text" class="form-control" form="editForm" name="name" value="<%= @exercise.name %>" required autofocus>
-    </div>
-    <div class="form-group">
-      <label for="description">Description:</label>
-      <textarea name="description" class="form-control" form="editForm"; rows="6" cols="50" required><%= @exercise.description %></textarea>
     </div>
     <div class="form-group">
       <label for="weight_type">Weight Type:</label>

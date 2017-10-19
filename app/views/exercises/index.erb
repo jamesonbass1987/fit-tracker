@@ -1,100 +1,22 @@
 <div class="container">
-<h1><strong>My Exercises</strong></h1>
+  <h1><strong>My Exercises</strong></h1>
   <div class="col-md-12">
-    <h4><strong>Legs</strong></h4>
-      <% @legs.each do |exercise| %>
-          <div class="col-md-3 panel panel-default">
-            <a href="/exercises/<%= exercise.id %>" target="_blank">
-              <br>
-              <img src="/images/weightlifting-icon-legs.png" class="img-responsive center-block" style="width:33%" alt="">
-              <br>
-              <p class="text-center"><strong><%= exercise.name %></strong></p>
-            </a>
-            <% if exercise.user_id == current_user.id %>
-              <p><a href="/exercises/<%= exercise.id %>/edit"><button type="button" class="btn btn-primary btn-md center-block">Edit Exercise</button></a>
-            <% end %>
-          </div>
-      <% end %>
-  </div>
-  <div class="col-md-12">
-  <h4><strong>Chest</strong></h4>
-    <% @chest.each do |exercise| %>
-    <div class="col-md-3 panel panel-default">
-      <a href="/exercises/<%= exercise.id %>" target="_blank">
+    <h3><strong>Exercises:</strong></h3>
+    <% @exercises.each do |exercise| %>
+      <div class="col-md-3 panel panel-default">
         <br>
-        <img src="/images/weightlifting-icon-chest.png" class="img-responsive center-block" style="width:35%" alt="">
+        <img src="<%= exercise.img_tag %>" class="img-responsive center-block" style="width:33%" alt="">
         <br>
-        <p class="text-center"><strong><%= exercise.name %></strong></p>
-      </a>
-      <% if exercise.user_id == current_user.id %>
-        <p><a href="/exercises/<%= exercise.id %>/edit"><button type="button" class="btn btn-primary btn-md center-block">Edit Exercise</button></a>
-      <% end %>
-    </div>
+        <div class="" style="">
+          <p><span class="label <%= exercise.body_part_tag %> center-block" style="line-height: 0.6em; max-width: 60%; padding: 5px"><%= exercise.body_part %></span></p>
+          <span class="label <%= exercise.weight_type_tag %> center-block"; style="line-height: 0.6em; max-width: 60%; padding: 5px" ><%= exercise.weight_type %></span>
+        </div>
+        <div class="" style="text-align: center; padding-top: 10px">
+           <p><a href="/exercises/<%= exercise.id %>" target="_blank"><strong><%= exercise.name %></strong></a></p>
+        </div>
+      </div>
     <% end %>
   </div>
-  <div class="col-md-12">
-  <h4><strong>Shoulders</strong></h4>
-    <% @shoulders.each do |exercise| %>
-    <div class="col-md-3 panel panel-default">
-      <a href="/exercises/<%= exercise.id %>" target="_blank">
-        <br>
-        <img src="/images/weightlifting-icon-shoulders.png" class="img-responsive center-block" style="width:35%" alt="">
-        <br>
-        <p class="text-center"><strong><%= exercise.name %></strong></p>
-      </a>
-      <% if exercise.user_id == current_user.id %>
-        <p><a href="/exercises/<%= exercise.id %>/edit"><button type="button" class="btn btn-primary btn-md center-block">Edit Exercise</button></a>
-      <% end %>
-    </div>
-    <% end %>
-  </div>
-  <div class="col-md-12">
-  <h4><strong>Arms</strong></h4>
-    <% @arms.each do |exercise| %>
-    <div class="col-md-3 panel panel-default">
-      <a href="/exercises/<%= exercise.id %>" target="_blank">
-        <br>
-        <img src="/images/weightlifting-icon-arms.png" class="img-responsive center-block" style="width:35%" alt="">
-        <br>
-        <p class="text-center"><strong><%= exercise.name %></strong></p>
-      </a>
-      <% if exercise.user_id == current_user.id %>
-        <p><a href="/exercises/<%= exercise.id %>/edit"><button type="button" class="btn btn-primary btn-md center-block">Edit Exercise</button></a>
-      <% end %>
-    </div>
-    <% end %>
-  </div>
-  <div class="col-md-12">
-  <h4><strong>Back</strong></h4>
-    <% @back.each do |exercise| %>
-    <div class="col-md-3 panel panel-default">
-      <a href="/exercises/<%= exercise.id %>" target="_blank">
-        <br>
-        <img src="/images/weightlifting-icon-back.png" class="img-responsive center-block" style="width:35%" alt="">
-        <br>
-        <p class="text-center"><strong><%= exercise.name %></strong></p>
-      </a>
-      <% if exercise.user_id == current_user.id %>
-        <p><a href="/exercises/<%= exercise.id %>/edit"><button type="button" class="btn btn-primary btn-md center-block">Edit Exercise</button></a>
-      <% end %>
-    </div>
-    <% end %>
-  </div>
-  <div class="col-md-12">
-  <h4><strong>Abdominals</strong></h4>
-    <% @abdominals.each do |exercise| %>
-    <div class="col-md-3 panel panel-default">
-      <a href="/exercises/<%= exercise.id %>" target="_blank">
-        <br>
-        <img src="/images/weightlifting-icon-abs.png" class="img-responsive center-block" style="width:40%" alt="">
-        <br>
-        <p class="text-center"><strong><%= exercise.name %></strong></p>
-      </a>
-      <% if exercise.user_id == current_user.id %>
-        <p><a href="/exercises/<%= exercise.id %>/edit"><button type="button" class="btn btn-primary btn-md center-block">Edit Exercise</button></a>
-      <% end %>
-    </div>
-    <% end %>
-  </div>
+
   <p>Don't see an exercise you are looking for? Create new exercises <a href="/exercises/new">here</a>.</p>
 </div>

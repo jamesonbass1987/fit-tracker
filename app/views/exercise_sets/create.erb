@@ -1,35 +1,35 @@
 <div class="container">
   <h1><strong><%= @exercise.name %></strong></h1>
 
-  <form action="/exercises/<%= @exercise.id %>/sets?workout_id=<%= @workout_id %>" method="post">
-      <table class="table">
+  <div class="">
+    <p><strong>Weight Type:</strong>&nbsp;<%= @exercise.weight_type %></p>
+    <p><strong>Body Part:</strong>&nbsp;<%= @exercise.body_part %></p>
+  </div>
+
+  <div class="">
+    <table class="table">
+      <tr>
+        <th>Set #</th>
+        <th>Weight</th>
+        <th>Reps</th>
+        <th>Units</th>
+        <th></th>
+      </tr>
+      <form class="form-inline" action="/exercises/<%= @exercise.id %>/sets?workout_id=<%= @workout_id %>" method="post">
         <tr>
-          <th>Set #</th>
-          <th>Weight</th>
-          <th>Reps</th>
-          <th>Units</th>
-        </tr>
-      <% if @sets.count > 0 %>
-        <% @sets.each do |set| %>
-            <tr>
-              <td><%= @set_num += 1 %></td>
-              <td><%= set.weight %></td>
-              <td><%= set.reps %></td>
-            </tr>
-        <% end %>
-      <% end %>
-        <tr>
-          <td><%=@set_num += 1%></td>
-          <td><input type="number" min="1" step="1" name="weight" required></td>
-          <td><input type="number" min="1" step="1" name="reps" required></td>
+          <td><%= @set_num += 1 %></td>
+          <td><input style="" type="number" min="0" step=".5" name="weight" required></td>
+          <td><input style="" type="number" min="0" step=".5" name="reps" required></td>
           <td>
-            <select class="form-control" name="measurement">
+            <select class="form-control" name="units">
               <option value="Lbs">Lbs</option>
               <option value="Kg">Kg</option>
             </select>
           </td>
         </tr>
-      </table>
+    </table>
       <button type="submit" class="btn btn-primary" name="">Add Set</button>
-  </form>
+      <a href="/exercises/<%= @exercise.id %>"><button type="button" class="btn btn-warning">View Exercise</button></a>
+    </form>
+  </div>
 </div>

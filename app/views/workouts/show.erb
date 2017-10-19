@@ -3,7 +3,7 @@
   <p><strong>Description:</strong> <%= @workout.description %></p>
 
   <div class="">
-    <% if @workout.exercises.count > 0 %>
+    <% if !@workout.exercises.empty? %>
     <div class="col-sm-12">
       <% @workout.exercises.each do |exercise| %>
         <div class="col-sm-12 panel panel-default">

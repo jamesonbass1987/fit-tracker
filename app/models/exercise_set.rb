@@ -1,4 +1,5 @@
 class ExerciseSet < ActiveRecord::Base
-  belongs_to :user
+  extend Slugifiable::ClassMethods
+  include Slugifiable::InstanceMethods
   belongs_to :exercise
 end

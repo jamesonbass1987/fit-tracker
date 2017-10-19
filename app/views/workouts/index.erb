@@ -1,6 +1,6 @@
 <div class="container">
-  <h2><strong>Your Workouts:</strong></h2><br>
-
+  <h2><strong>Your Workouts:</strong></h2>
+  <br>
   <div class="">
     <% if @user.workouts.count > 0 %>
       <ol>
@@ -19,8 +19,11 @@
         <br>
         <% end %>
       </ol>
-    <% else %>
       <div class="alert alert-info">
+          <a href="/workouts/new"><strong>Click here to create a new workout.</strong></a>
+      </div>
+    <% else %>
+      <div class="alert alert-warning">
           You have not created any workouts! <a href="/workouts/new"><strong>Click here to get started.</strong></a>
       </div>
     <% end %>

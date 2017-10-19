@@ -14,10 +14,9 @@
 ActiveRecord::Schema.define(version: 20171016215906) do
 
   create_table "exercise_sets", force: :cascade do |t|
-    t.string  "measurement"
+    t.string  "units"
     t.integer "weight"
     t.integer "reps"
-    t.integer "user_id"
     t.integer "exercise_id"
   end
 
@@ -25,7 +24,6 @@ ActiveRecord::Schema.define(version: 20171016215906) do
     t.string  "name"
     t.string  "body_part"
     t.string  "weight_type"
-    t.string  "description"
     t.integer "user_id"
   end
 

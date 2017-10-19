@@ -4,13 +4,35 @@ class ExercisesController < ApplicationController
     logged_in_redirect_check
 
     #set instance variables based on exercise body part
-    @legs = Exercise.all.find_all { |exercise| exercise.body_part == "Legs" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
-    @chest = Exercise.all.find_all { |exercise| exercise.body_part == "Chest" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
-    @shoulders = Exercise.all.find_all { |exercise| exercise.body_part == "Shoulders" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
-    @arms = Exercise.all.find_all { |exercise| exercise.body_part == "Arms" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
-    @back = Exercise.all.find_all { |exercise| exercise.body_part == "Back" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
-    @abdominals = Exercise.all.find_all { |exercise| exercise.body_part == "Abdominals" && (exercise.user_id.nil? || exercise.user_id == current_user.id)}
 
+    #set instance variables for user exercises, ordering by body_part for display on view page
+    @exercises = Exercise.order(:body_part).find_all{|exercise| exercise.user_id == current_user.id }
+
+    #set tag values for img tag, body_part and weight_type for display on page via attr accessor attributes so as to not persist to db
+    @exercises.each do |exercise|
+      case exercise.body_part
+      when "Legs"
+        exercise.body_part_tag = "label-primary"
+        exercise.img_tag = "/images/weightlifting-icon-legs.png"
+      when "Chest"
+        exercise.body_part_tag = "label-success"
+        exercise.img_tag = "/images/weightlifting-icon-chest.png"
+      when "Shoulders"
+        exercise.body_part_tag = "label-info"
+        exercise.img_tag = "/images/weightlifting-icon-shoulders.png"
+      when "Arms"
+        exercise.body_part_tag = "label-warning"
+        exercise.img_tag = "/images/weightlifting-icon-arms.png"
+      when "Back"
+        exercise.body_part_tag = "label-danger"
+        exercise.img_tag = "/images/weightlifting-icon-legs.png"
+      else
+        exercise.body_part_tag = "label-default"
+        exercise.img_tag = "/images/weightlifting-icon-abs.png"
+      end
+
+      exercise.weight_type_tag = "label-primary"
+    end
 
     erb :"/exercises/index"
   end
@@ -23,14 +45,15 @@ class ExercisesController < ApplicationController
 
   post '/exercises' do
     #create instance variable from submitted information
-    @exercise = Exercise.new(:name => params[:name], :description => params[:description], :body_part => params[:body_part], :weight_type => params[:weight_type])
+    @exercise = Exercise.new(:name => params[:name], :body_part => params[:body_part], :weight_type => params[:weight_type])
     @user = current_user
+    @user_exercises = Exercise.all.find_all{ |exercise| exercise.user_id == current_user.id}
 
-    #search current list of exercises for duplicates in open exercise list or user created list. if so, reload page with error
-    if Exercise.all.any?{|exercise| (exercise.name == @exercise.name && exercise.user_id == current_user.id) || (exercise.name == @exercise.name && exercise.user_id.nil?)}
-      @exercise_creation_error = true
-      erb :"/exercises/create"
-    else
+
+    #search current list of user exercises for perfect duplicates. if so, reload page with error
+    @duplicate_exercise = @user_exercises.find{|exercise| (exercise.name == @exercise.name && exercise.body_part == @exercise.body_part && exercise.weight_type == @exercise.weight_type)}
+
+    if !@duplicate_exercise
       #associate created exercise to user
       @user.exercises << @exercise
 
@@ -38,6 +61,9 @@ class ExercisesController < ApplicationController
       @exercise.save
 
       redirect to '/exercises'
+    else
+      @exercise_creation_error = true
+      erb :"/exercises/create"
     end
   end
 
@@ -45,8 +71,10 @@ class ExercisesController < ApplicationController
     logged_in_redirect_check
 
     @exercise = Exercise.find_by_id(params[:id])
+    @sets = @exercise.exercise_sets
+    @set_num = 0
 
-    if @exercise && (@exercise.user_id == current_user.id || @exercise.user_id.nil?)
+    if @exercise && @exercise.user_id == current_user.id
       erb :"/exercises/show"
     else
       redirect to :"/exercises"
@@ -59,37 +87,39 @@ class ExercisesController < ApplicationController
     @exercise = Exercise.find_by_id(params[:id])
 
     #check to see if exerise exists and current user created this exercise and is allowed to edit
-    if !@exercise || @exercise.user_id != current_user.id
-      redirect to :"/exercises"
-    else
+    if @exercise && @exercise.user_id == current_user.id
       erb :"/exercises/edit"
+    else
+      redirect to :"/exercises"
     end
   end
 
   patch '/exercises/:id' do
 
-    #create instance of exercise
-    @exercise = Exercise.find_by_id(params[:id])
+    #create instances of exercise and user exercises
+    @exercise, exercise_edits = Exercise.find_by_id(params[:id]), Exercise.find_by_id(params[:id])
+    @user_exercises = Exercise.all.find_all{ |exercise| exercise.user_id == current_user.id}
 
-    if @exercise.name != params[:name] || @exercise.description != params[:description] || @exercise.body_part != params[:body_part] || @exercise.weight_type != params[:weight_type]
-      erb :"/exercises/create"
-      #update parameters if any have changed
-      @exercise.name = params[:name]
-      @exercise.description = params[:description]
-      @exercise.body_part = params[:body_part]
-      @exercise.weight_type = params[:weight_type]
+    #update parameters if any have changed
+    if @exercise.name != params[:name] || @exercise.body_part != params[:body_part] || @exercise.weight_type != params[:weight_type]
+      exercise_edits.name = params[:name]
+      exercise_edits.body_part = params[:body_part]
+      exercise_edits.weight_type = params[:weight_type]
     end
 
-    #check to see if any exercises currently exist with the same name belonging to the current user or for exercises in open exercise list
-    if Exercise.all.any?{|exercise| (exercise.name == @exercise.name && exercise.user_id == current_user.id) || (exercise.name == @exercise.name && exercise.user_id.nil?) }
+    #check to see if any exercises currently exist with the same name belonging to the current user
+    @duplicate_exercise = @user_exercises.find{|exercise| exercise.name == exercise_edits.name && exercise.body_part == exercise_edits.body_part && exercise.weight_type == exercise_edits.weight_type && exercise.id != params[:id].to_i}
+
+    #if no dupliate is found, save to db and redirect to exercises overview, else, throw error and redirect to edit page
+    if !@duplicate_exercise
+      #save changes to db
+      exercise_edits.save
+
+      redirect to :"/exercises"
+    else
       @exercise_edit_error = true
       erb :"/exercises/edit"
     end
-
-    #save to db
-    @exercise.save
-
-    redirect to :"/exercises"
 
   end
 
