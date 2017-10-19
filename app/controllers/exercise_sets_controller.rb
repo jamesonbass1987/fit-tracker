@@ -6,7 +6,7 @@ class ExerciseSetsController < ApplicationController
     #set variables for user, exercise and sets
     @user = current_user
     @exercise = Exercise.find_by_id(params[:exercise_id])
-    @sets = ExerciseSet.all.find_all{|set| set.user_id == @user.id && set.exercise_id == @exercise.id}
+    @sets = @exercise.exercise_sets
     @set_num = 0
 
     #parse url to retrieve workout id to redirect user to after editing set

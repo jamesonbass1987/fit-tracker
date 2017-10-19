@@ -124,14 +124,14 @@ class WorkoutsController < ApplicationController
 
   patch '/workouts/:id' do
 
-    binding.pry
-
     #find workout and current user and set to instance variables
     workout = Workout.find_by_id(params[:id])
 
-    #update name and description sections with any changes
-    workout.name = params[:name]
-    workout.description = params[:description]
+    #update name and description sections with any changes (if submitted via edit form)
+    if !params[:name].nil? && !params[:description].nil?
+      workout.name = params[:name]
+      workout.description = params[:description]
+    end
 
     #iterate through newly added exercises, adding them to workout
     if !!params[:exercise] && params[:exercise].include?(:id)

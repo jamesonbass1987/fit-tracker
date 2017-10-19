@@ -15,11 +15,17 @@
         <th>Units</th>
         <th></th>
       </tr>
-      <form class="form-inline" action="/exercises/<%= @exercise.id %>/sets?workout_id=<%= @workout_id %>" method="post">
+      <form class="form-inline" id="addForm" action="/exercises/<%= @exercise.id %>/sets?workout_id=<%= @workout_id %>" method="post">
+      </form>
+      <% if @workout_id %>
+        <form id="editForm" action="/workouts/<%= @workout_id %>" method="post">
+          <input id="hidden" type="hidden" name="_method" value="patch">
+        </form>
+      <% end %>
         <tr>
           <td><%= @set_num += 1 %></td>
-          <td><input style="" type="number" min="0" step=".5" name="weight" required></td>
-          <td><input style="" type="number" min="0" step=".5" name="reps" required></td>
+          <td><input form="addForm" style="" type="number" min="0" step=".5" name="weight" required></td>
+          <td><input form="addForm" style="" type="number" min="0" step=".5" name="reps" required></td>
           <td>
             <select class="form-control" name="units">
               <option value="Lbs">Lbs</option>
@@ -28,8 +34,10 @@
           </td>
         </tr>
     </table>
-      <button type="submit" class="btn btn-primary" name="">Add Set</button>
-      <a href="/exercises/<%= @exercise.id %>"><button type="button" class="btn btn-warning">View Exercise</button></a>
-    </form>
+      <a href="/exercises/<%= @exercise.id %>"><button type="button" class="btn btn-primary">View Exercise</button></a>
+      <button type="submit" form="addForm" class="btn btn-success" name="">Add Set</button>
+    <% if @workout_id %>
+      <button type="submit" form="editForm" class="btn btn-warning" name="[exercise][current_exercises][]" value="<%= @exercise.id %>">Remove Exercise</button>
+    <% end %>
   </div>
 </div>
