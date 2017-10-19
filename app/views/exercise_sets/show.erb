@@ -27,7 +27,7 @@
     </table>
 
   <div class="">
-    <% if @workout_id %>
+    <% if @workout_id && @workout_id != 'null' %>
       <a href="/exercises/<%= @exercise.id %>/sets/edit?workout_id=<%= @workout_id %>"><button type="button" class="btn btn-primary">Add/Edit Sets</button></a>
     <% else %>
       <a href="/exercises/<%= @exercise.id %>/sets/edit"><button type="button" class="btn btn-primary">Add/Edit Sets</button></a>

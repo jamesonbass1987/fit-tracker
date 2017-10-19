@@ -60,7 +60,7 @@ class ExercisesController < ApplicationController
       #save exercise instance to DB
       @exercise.save
 
-      redirect to '/exercises'
+      redirect to '/exercises/<%= @exercise.id %>'
     else
       @exercise_creation_error = true
       erb :"/exercises/create"
@@ -73,6 +73,11 @@ class ExercisesController < ApplicationController
     @exercise = Exercise.find_by_id(params[:id])
     @sets = @exercise.exercise_sets
     @set_num = 0
+
+    #parse url to retrieve workout id to redirect user to after editing set
+    parsed_url = request.url.split("workout_id=").last
+    @workout_id = parsed_url unless parsed_url.include?("http")
+    @workout_id ||= 'null'
 
     if @exercise && @exercise.user_id == current_user.id
       erb :"/exercises/show"
@@ -115,7 +120,7 @@ class ExercisesController < ApplicationController
       #save changes to db
       exercise_edits.save
 
-      redirect to :"/exercises"
+      redirect to "/exercises/#{@exercise.id}"
     else
       @exercise_edit_error = true
       erb :"/exercises/edit"

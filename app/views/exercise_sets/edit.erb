@@ -49,7 +49,7 @@
           </tr>
       </table>
       <button type="submit" form="editForm" name=""class="btn btn-primary">Save</button>
-      <% if @workout_id %>
+      <% if @workout_id && @workout_id != 'null' %>
         <button type="submit" form="removeForm" class="btn btn-warning" name="[exercise][current_exercises][]" value="<%= @exercise.id %>">Remove From Workout</button>
       <% end %>
   </div>

@@ -34,9 +34,10 @@
           </td>
         </tr>
     </table>
-      <a href="/exercises/<%= @exercise.id %>"><button type="button" class="btn btn-primary">View Exercise</button></a>
+      <a href="/exercises/<%= @exercise.id %>?workout_id=<%= @workout_id %>"><button type="button" class="btn btn-primary">View Exercise</button></a>
       <button type="submit" form="addForm" class="btn btn-success" name="">Add Set</button>
-    <% if @workout_id %>
+    <% if @workout_id && @workout_id != "null" %>
+      <a href="/workouts/<%= @workout_id %>"><button type="button" class="btn btn-info">Return To Workout</button></a>
       <button type="submit" form="editForm" class="btn btn-warning" name="[exercise][current_exercises][]" value="<%= @exercise.id %>">Remove Exercise</button>
     <% end %>
   </div>

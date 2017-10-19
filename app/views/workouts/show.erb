@@ -33,38 +33,35 @@
 
         <% if !exercise.exercise_sets.empty? %>
         <div class="">
-              <% @num = 1 %>
-              <table class="table table-striped">
+          <% @num = 1 %>
+          <table class="table table-striped">
+            <tr>
+              <th>Set #</th>
+              <th>Weight</th>
+              <th>Reps</th>
+            </tr>
+            <% exercise.exercise_sets.each do |set| %>
                 <tr>
-                  <th>Set #</th>
-                  <th>Weight</th>
-                  <th>Reps</th>
-                </tr>
-                <% exercise.exercise_sets.each do |set| %>
-                    <tr>
-                    <td><%= @num %></td>
-                    <td><%= set.weight %></td>
-                    <td><%= set.reps %></td>
-                  </tr>
-                <% @num += 1 %>
-              <% end %>
-            </table>
-            <br>
-            <a href="/exercises/<%= exercise.id %>/sets?workout_id=<%=@workout.id%>" target="_blank"><button class="btn btn-primary">View Exercise</button></a>
-            <a href="/exercises/<%= exercise.id %>/sets/edit?workout_id=<%=@workout.id%>"><button class="btn btn-success">Add/Edit Sets</button></a>
-            <button type="submit" class="btn btn-warning" form="editForm" name="[exercise][current_exercises][]" value="<%= exercise.id %>">Remove Exercise</button>
-          </div>
-          <br>
-          <% else %>
-          <div class="alert alert-info">
-              You have not added any sets to this exercise. <a href="/exercises/<%= exercise.id %>/sets/edit?workout_id=<%=@workout.id%>"><strong>Click here to get started.</strong></a>
-          </div>
-          <div class="">
-            <a href="/exercises/<%= exercise.id %>" target="_blank"><button class="btn btn-primary">View Exercise</button></a>
-            <button type="submit" class="btn btn-warning" form="editForm" name="[exercise][current_exercises][]" value="<%= exercise.id %>">Remove Exercise</button>
-            <br><br>
-          </div>
-          <% end %>
+                <td><%= @num %></td>
+                <td><%= set.weight %></td>
+                <td><%= set.reps %></td>
+              </tr>
+            <% @num += 1 %>
+            <% end %>
+          </table>
+        </div>
+        <br>
+        <% else %>
+        <div class="alert alert-info">
+            <strong>You have not added any sets to this exercise.</strong>
+        </div>
+        <% end %>
+        <div class="">
+          <a href="/exercises/<%= exercise.id %>?workout_id=<%= @workout.id %>"><button class="btn btn-primary">View Exercise</button></a>
+          <a href="/exercises/<%= exercise.id %>/sets/edit?workout_id=<%=@workout.id%>"><button class="btn btn-success">Add/Edit Sets</button></a>
+          <button type="submit" class="btn btn-warning" form="editForm" name="[exercise][current_exercises][]" value="<%= exercise.id %>">Remove Exercise</button>
+          <br><br>
+        </div>
         <% end %>
       <% else %>
       <div class="alert alert-info">

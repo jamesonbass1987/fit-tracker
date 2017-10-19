@@ -6,7 +6,8 @@
       <ol>
         <% @user.workouts.each do |workout| %>
         <li style="line-height: 90%">
-          <strong style="font-size: 110%"><%= workout.name %></strong><br><br>
+          <p style="font-size: 110%"><strong>Workout:&nbsp;</strong><%= workout.name %></p>
+          <p style="font-size: 110%"><strong >Description:&nbsp;</strong><%= workout.description %></p><br>
           <div class="btn-group">
             <form action="/workouts/<%= workout.id %>/delete" method="post">
               <input id="hidden" type="hidden" name="_method" value="delete">

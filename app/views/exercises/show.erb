@@ -28,6 +28,9 @@
     <form action="/exercises/<%= @exercise.id %>/delete" method="post">
       <input id="hidden" type="hidden" name="_method" value="delete">
       <a href="/workouts"><button type="button" class="btn btn-primary">Add To Workout</button></a>
+      <% if @workout_id && @workout_id != 'null' %>
+        <a href="/workouts/<%= @workout_id %>"><button type="button" class="btn btn-info">Return To Workout</button></a>
+      <% end %>
       <a href="/exercises/<%= @exercise.id %>/edit"><button type="button" class="btn btn-warning">Edit Exercise</button></a>
       <a href="/exercises/<%= @exercise.id %>/sets/edit"><button type="button" class="btn btn-success">Add/Edit Sets</button></a>
       <button type="submit" class="btn btn-danger">Delete</button>
