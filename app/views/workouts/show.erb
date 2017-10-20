@@ -52,8 +52,8 @@
         </div>
         <br>
         <% else %>
-        <div class="alert alert-info">
-            <strong>You have not added any sets to this exercise.</strong>
+        <div class="alert alert-warning">
+            You have not added any sets to this exercise.
         </div>
         <% end %>
         <div class="">
@@ -64,7 +64,7 @@
         </div>
         <% end %>
       <% else %>
-      <div class="alert alert-info">
+      <div class="alert alert-warning">
           You have not added any exercises to this workout. <a href="/workouts/<%= @workout.id %>/edit?workout_id=<%=@workout.id%>"><strong>Click here to get started.</strong></a>
       </div>
       <% end %>

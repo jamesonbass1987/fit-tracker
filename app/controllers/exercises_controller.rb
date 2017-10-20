@@ -9,30 +9,7 @@ class ExercisesController < ApplicationController
     @exercises = Exercise.order(:body_part).find_all{|exercise| exercise.user_id == current_user.id }
 
     #set tag values for img tag, body_part and weight_type for display on page via attr accessor attributes so as to not persist to db
-    @exercises.each do |exercise|
-      case exercise.body_part
-      when "Legs"
-        exercise.body_part_tag = "label-primary"
-        exercise.img_tag = "/images/weightlifting-icon-legs.png"
-      when "Chest"
-        exercise.body_part_tag = "label-success"
-        exercise.img_tag = "/images/weightlifting-icon-chest.png"
-      when "Shoulders"
-        exercise.body_part_tag = "label-info"
-        exercise.img_tag = "/images/weightlifting-icon-shoulders.png"
-      when "Arms"
-        exercise.body_part_tag = "label-warning"
-        exercise.img_tag = "/images/weightlifting-icon-arms.png"
-      when "Back"
-        exercise.body_part_tag = "label-danger"
-        exercise.img_tag = "/images/weightlifting-icon-legs.png"
-      else
-        exercise.body_part_tag = "label-default"
-        exercise.img_tag = "/images/weightlifting-icon-abs.png"
-      end
-
-      exercise.weight_type_tag = "label-primary"
-    end
+    exercise_img_label_tagger
 
     erb :"/exercises/index"
   end
@@ -49,7 +26,6 @@ class ExercisesController < ApplicationController
     @user = current_user
     @user_exercises = Exercise.all.find_all{ |exercise| exercise.user_id == current_user.id}
 
-
     #search current list of user exercises for perfect duplicates. if so, reload page with error
     @duplicate_exercise = @user_exercises.find{|exercise| (exercise.name == @exercise.name && exercise.body_part == @exercise.body_part && exercise.weight_type == @exercise.weight_type)}
 
@@ -60,7 +36,7 @@ class ExercisesController < ApplicationController
       #save exercise instance to DB
       @exercise.save
 
-      redirect to '/exercises/<%= @exercise.id %>'
+      redirect to "/exercises/#{@exercise.id}"
     else
       @exercise_creation_error = true
       erb :"/exercises/create"
@@ -75,9 +51,7 @@ class ExercisesController < ApplicationController
     @set_num = 0
 
     #parse url to retrieve workout id to redirect user to after editing set
-    parsed_url = request.url.split("workout_id=").last
-    @workout_id = parsed_url unless parsed_url.include?("http")
-    @workout_id ||= 'null'
+    workout_id_parser
 
     if @exercise && @exercise.user_id == current_user.id
       erb :"/exercises/show"

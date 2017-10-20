@@ -4,8 +4,8 @@
   <p><strong>Body Part:</strong> <%= @exercise.body_part %></p>
 
   <% if @sets.empty? %>
-  <div class="alert alert-info">
-    <strong>No sets have been added yet!</strong>
+  <div class="alert alert-warning">
+    No sets have been added yet!
   </div>
   <% else %>
     <table class="table table-striped">
@@ -31,6 +31,7 @@
       <% if @workout_id && @workout_id != 'null' %>
         <a href="/workouts/<%= @workout_id %>"><button type="button" class="btn btn-info">Return To Workout</button></a>
       <% end %>
+      <a href="/exercises"><button type="button" class="btn btn-warning" style="background-color: purple; border-color: purple">View Exercises</button></a>
       <a href="/exercises/<%= @exercise.id %>/edit"><button type="button" class="btn btn-warning">Edit Exercise</button></a>
       <a href="/exercises/<%= @exercise.id %>/sets/edit"><button type="button" class="btn btn-success">Add/Edit Sets</button></a>
       <button type="submit" class="btn btn-danger">Delete</button>

@@ -32,7 +32,7 @@
       <% if @workout.exercises.count > 0 %>
         <% @workout.exercises.each do |exercise| %>
           <div class="col-sm-12 panel panel-default">
-            <label class="checkbox-inline">
+            <label class="checkbox-inline" style="width:100%">
               <br>
               <p style=""><strong><%= exercise.name %></strong>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -40,7 +40,32 @@
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <strong>Weight Type:</strong>&nbsp;<%= exercise.weight_type %>
             </p>
-              <p style="padding-left: 1.5em"><input type="checkbox" form="editForm" name="[exercise][current_exercises][]" value="<%= exercise.id %>" class="checkbox-inline" style="">Remove</p>
+              <p style="padding-left: 1.5em; line-height: 1.5em"><input type="checkbox" form="editForm" name="[exercise][current_exercises][]" value="<%= exercise.id %>" class="checkbox-inline" style="">Remove</p>
+              <% if !exercise.exercise_sets.empty? %>
+              <div class="">
+                <% @num = 1 %>
+                <table class="table table-striped">
+                  <tr>
+                    <th>Set #</th>
+                    <th>Weight</th>
+                    <th>Reps</th>
+                  </tr>
+                  <% exercise.exercise_sets.each do |set| %>
+                      <tr>
+                      <td><%= @num %></td>
+                      <td><%= set.weight %></td>
+                      <td><%= set.reps %></td>
+                    </tr>
+                  <% @num += 1 %>
+                  <% end %>
+                </table>
+              </div>
+              <br>
+              <% else %>
+              <div class="alert alert-warning">
+                  You have not added any sets to this exercise.
+              </div>
+              <% end %>
             </label>
           </div>
         <% end %>
@@ -61,7 +86,7 @@
               <br>
               <div class="" style="">
                 <p><span class="label <%= exercise.body_part_tag %> center-block" style="line-height: 0.9em; max-width: 60%; padding: 5px"><%= exercise.body_part %></span></p>
-                <span class="label <%= exercise.weight_type_tag %> center-block"; style="line-height: 0.9em; max-width: 60%; padding: 5px" ><%= exercise.weight_type %></span>
+                <span class="label label-default center-block"; style="line-height: 0.9em; max-width: 60%; padding: 5px" ><%= exercise.weight_type %></span>
               </div>
             <div class="" style="text-align: center; padding-top: 10px">
               <label class="form-check-label" style="">

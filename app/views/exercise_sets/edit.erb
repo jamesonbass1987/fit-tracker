@@ -32,7 +32,7 @@
             <tr>
               <td><%= @set_num += 1 %></td>
               <td><input type="number" min="0" step=".5" name="exercise_set[<%= @set_num %>][weight]" form="editForm" value="<%= set.weight %>"></td>
-              <td><input type="number" min="0" step=".5" name="exercise_set[<%= @set_num %>][reps]" form="editForm" value="<%= set.reps %>"></td>
+              <td><input type="number" min="0" step="1" name="exercise_set[<%= @set_num %>][reps]" form="editForm" value="<%= set.reps %>"></td>
               <input type="hidden" name="units" form="deleteForm" value="<%= @sets.first.units %>">
               <input type="hidden" name="set_num" form="deleteForm" value="<%= @set_num %>">
               <td>      <button type="submit" form="deleteForm"  name="workout_id[<%= @workout_id%>]" class="btn btn-danger">Delete</button></td>
@@ -41,7 +41,7 @@
         <form class="form-inline" action="/exercises/<%= @exercise.id %>/sets?workout_id=<%= @workout_id %>" method="post">
           <tr>
             <td><%= @set_num += 1 %></td>
-            <td><input style="" type="number" min="1" step="1" name="weight" required></td>
+            <td><input style="" type="number" min="1" step=".5" name="weight" required></td>
             <td><input style="" type="number" min="1" step="1" name="reps" required></td>
             <input type="hidden" name="units" value="<%= @sets.first.units %>">
             <td> <button type="submit" class="btn btn-success">Add</button></td>

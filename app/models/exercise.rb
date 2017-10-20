@@ -6,5 +6,5 @@ class Exercise < ActiveRecord::Base
   extend Slugifiable::ClassMethods
   include Slugifiable::InstanceMethods
 
-  attr_accessor :body_part_tag, :weight_type_tag, :img_tag
+  attr_accessor :body_part_tag, :img_tag
 end

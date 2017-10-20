@@ -1,36 +1,38 @@
-<% if @signup_duplication_error%>
-  <div class="alert alert-danger">
-    <strong>An account with that username or e-mail already exists. Please login to continue.</strong>
-  </div>
-<% end %>
-
 <div class="container">
 
-  <form class="form-signin" action='/signup' method="post">
-    <h2 class="form-signin-heading">Sign up:</h2>
-    <div class="form-group">
-      <label for="inputUsername">Username:</label>
-      <input name="username" type="username" id="inputUsername" class="form-control" placeholder="Enter username" required autofocus>
+  <% if @signup_duplication_error%>
+    <div class="alert alert-danger">
+      <strong>An account with that username or e-mail already exists. Please login to continue.</strong>
     </div>
-    <div class="form-group">
-      <label for="inputPassword">Password:</label>
-      <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Enter password" required>
-    </div>
-    <div class="form-group">
-      <label for="inputFirstName">First and Last Name:</label>
-      <input name="first_name" type="text" id="inputFirstName" class="form-control" placeholder="First Name" required>
-      <input name="last_name" type="text" id="inputLastName" class="form-control" placeholder="Last Name" required>
-    </div>
-    <div class="">
-      <label for="inputEmail">Email:</label>
-      <input name="email" type="text" id="inputEmail" class="form-control" placeholder="Email" required>
-      <br>
-    </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-  </form>
+  <% end %>
 
-</div>
-<br>
-<div class="alert alert-info">
-  <strong>Already a member?</strong> <a href="/login" class="alert-link">Log In</a>.
+    <form class="form-signin" action='/signup' method="post">
+      <h2 class="form-signin-heading">Sign up:</h2>
+      <div class="form-group">
+        <label for="inputUsername">Username:</label>
+        <input name="username" type="username" id="inputUsername" class="form-control" placeholder="Enter username" required autofocus>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword">Password:</label>
+        <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Enter password" required>
+      </div>
+      <div class="form-group">
+        <label for="inputFirstName">First and Last Name:</label>
+        <input name="first_name" type="text" id="inputFirstName" class="form-control" placeholder="First Name" required>
+        <input name="last_name" type="text" id="inputLastName" class="form-control" placeholder="Last Name" required>
+      </div>
+      <div class="">
+        <label for="inputEmail">Email:</label>
+        <input name="email" type="text" id="inputEmail" class="form-control" placeholder="Email" required>
+        <br>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
+    </form>
+
+  <br>
+
+  <div class="alert alert-info">
+    <strong>Already a member?</strong> <a href="/login" class="alert-link">Log In</a>.
+  </div>
+
 </div>

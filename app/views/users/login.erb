@@ -1,10 +1,10 @@
+<div class="container">
+
 <% if @login_error%>
   <div class="alert alert-danger">
     <strong>Oops! We hit a snag trying to log you in. Please check your credentials and try again. </strong>
   </div>
 <% end %>
-
-<div class="container">
 
   <form class="form-signin" action="/login" method="post">
     <h2 class="form-signin-heading">Please Log In:</h2>
@@ -18,9 +18,8 @@
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
   </form>
-
-</div>
-
-<div style="margin-left: 20px; margin-top: 20px">
+  <br>
   <p>Not a member of FitTracker? <a href="/signup">Sign Up.</a></p>
+
+
 </div>

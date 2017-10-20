@@ -1,5 +1,6 @@
 <div class="container">
   <h1><strong>My Exercises</strong></h1>
+  <p>Click on the exercise name for more info.</p>
   <div class="col-md-12">
     <h3><strong>Exercises:</strong></h3>
     <% @exercises.each do |exercise| %>
@@ -9,7 +10,7 @@
         <br>
         <div class="" style="">
           <p><span class="label <%= exercise.body_part_tag %> center-block" style="line-height: 0.6em; max-width: 60%; padding: 5px"><%= exercise.body_part %></span></p>
-          <span class="label <%= exercise.weight_type_tag %> center-block"; style="line-height: 0.6em; max-width: 60%; padding: 5px" ><%= exercise.weight_type %></span>
+          <span class="label label-default center-block"; style="line-height: 0.6em; max-width: 60%; padding: 5px" ><%= exercise.weight_type %></span>
         </div>
         <div class="" style="text-align: center; padding-top: 10px">
            <p><a href="/exercises/<%= exercise.id %>"><strong><%= exercise.name %></strong></a></p>
@@ -17,6 +18,9 @@
       </div>
     <% end %>
   </div>
-
-  <p>Don't see an exercise you are looking for? Create new exercises <a href="/exercises/new">here</a>.</p>
+</div>
+<div class="container">
+  <div class="alert alert-info">
+    Don't see an exercise you are looking for? <a href="/exercises/new"><strong>Create new exercises here.</strong></a>
+  </div>
 </div>

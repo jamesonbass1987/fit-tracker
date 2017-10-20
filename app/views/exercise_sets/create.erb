@@ -25,9 +25,9 @@
         <tr>
           <td><%= @set_num += 1 %></td>
           <td><input form="addForm" style="" type="number" min="0" step=".5" name="weight" required></td>
-          <td><input form="addForm" style="" type="number" min="0" step=".5" name="reps" required></td>
+          <td><input form="addForm" style="" type="number" min="0" step="1" name="reps" required></td>
           <td>
-            <select class="form-control" name="units">
+            <select class="form-control" form="addForm" name="units">
               <option value="Lbs">Lbs</option>
               <option value="Kg">Kg</option>
             </select>
