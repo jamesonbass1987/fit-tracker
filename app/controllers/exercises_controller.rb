@@ -74,13 +74,17 @@ class ExercisesController < ApplicationController
     @exercise, exercise_edits = Exercise.find_by_id(params[:id]), Exercise.find_by_id(params[:id])
     @user_exercises = Exercise.all.find_all{ |exercise| exercise.user_id == current_user.id}
 
-    #update parameters if any have changed
-    @exercise.update(name: params[:name], body_part: params[:body_part], weight_type: params[:weight_type])
+    #if any parameters have changed, create new variable (exercise_edits) to check if exercise matches previously created exercises
+    if @exercise.name != params[:name] || @exercise.body_part != params[:body_part] || @exercise.weight_type != params[:weight_type]
+      exercise_edits.name = params[:name]
+      exercise_edits.body_part = params[:body_part]
+      exercise_edits.weight_type = params[:weight_type]
+    end
 
     #check to see if any exercises currently exist with the same name belonging to the current user
     @duplicate_exercise = @user_exercises.find{|exercise| exercise.name == exercise_edits.name && exercise.body_part == exercise_edits.body_part && exercise.weight_type == exercise_edits.weight_type && exercise.id != params[:id].to_i}
 
-    #if no dupliate is found, save to db and redirect to exercises overview, else, throw error and redirect to edit page
+    #if no duplicate is found, save to db and redirect to exercises overview, else, throw error and redirect to edit page
     if !@duplicate_exercise
       #save changes to db
       exercise_edits.save
