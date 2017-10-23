@@ -12,11 +12,8 @@ class ExerciseSetsController < ApplicationController
     #parse url to retrieve workout id to redirect user to after editing set
     workout_id_parser
 
-    #check if exercise is not part of the stock group or if it doesn't belong to current_user, if so, redirects to profile page
-    exercise_set_owner_check
-
-    #check if exercise belongs to a workout already, if not, redirect to profile page
-    exercise_set_workout_check
+    #validate exercise exists and belongs to user
+    exercise_validation
 
     erb :'/exercise_sets/show'
   end
@@ -34,8 +31,8 @@ class ExerciseSetsController < ApplicationController
     #parse url to retrieve workout id to redirect user to after editing set
     workout_id_parser
 
-    #check if exercise is not part of the stock group or if it doesn't belong to current_user, if so, redirects to profile page
-    exercise_set_owner_check
+    #validate exercise exists and belongs to user
+    exercise_validation
 
     erb :'/exercise_sets/create'
   end
@@ -43,8 +40,7 @@ class ExerciseSetsController < ApplicationController
   post '/exercises/:exercise_id/sets' do
 
     #set a set variable based on input params and save to DB
-    @set = ExerciseSet.new(:weight => params[:weight], :units => params[:units], :reps => params[:reps])
-    @set.save
+    @set = ExerciseSet.create(:weight => params[:weight], :units => params[:units], :reps => params[:reps])
 
     #parse url to retrieve workout id to redirect user to after editing set
     workout_id_parser
@@ -72,8 +68,8 @@ class ExerciseSetsController < ApplicationController
     #parse url to retrieve workout id to redirect user to after editing set
     workout_id_parser
 
-    #check if exercise is not part of the stock group or if it doesn't belong to current_user, if so, redirects to profile page
-    exercise_set_owner_check
+    #validate exercise exists and belongs to user
+    exercise_validation
 
     #check to see if sets are available to edit, otherwise redirect to new set creation
     if @sets.empty?
