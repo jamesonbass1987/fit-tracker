@@ -3,8 +3,6 @@ class ExercisesController < ApplicationController
   get '/exercises' do
     logged_in_redirect_check
 
-    #set instance variables based on exercise body part
-
     #set instance variables for user exercises, ordering by body_part for display on view page
     @exercises = Exercise.order(:body_part).find_all{|exercise| exercise.user_id == current_user.id }
 
@@ -50,14 +48,13 @@ class ExercisesController < ApplicationController
     @sets = @exercise.exercise_sets
     @set_num = 0
 
+    #validate exercise exists and belongs to user
+    exercise_validation
+
     #parse url to retrieve workout id to redirect user to after editing set
     workout_id_parser
 
-    if @exercise && @exercise.user_id == current_user.id
-      erb :"/exercises/show"
-    else
-      redirect to :"/exercises"
-    end
+    erb :"/exercises/show"
   end
 
   get '/exercises/:id/edit' do
@@ -65,12 +62,10 @@ class ExercisesController < ApplicationController
 
     @exercise = Exercise.find_by_id(params[:id])
 
-    #check to see if exerise exists and current user created this exercise and is allowed to edit
-    if @exercise && @exercise.user_id == current_user.id
-      erb :"/exercises/edit"
-    else
-      redirect to :"/exercises"
-    end
+    #validate exercise exists and belongs to user
+    exercise_validation
+
+    erb :"/exercises/edit"
   end
 
   patch '/exercises/:id' do

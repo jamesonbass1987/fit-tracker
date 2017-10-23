@@ -49,31 +49,25 @@ class WorkoutsController < ApplicationController
     @workout = Workout.find_by_id(params[:id])
 
     #check to see if workout exists and belong to current user
-    if @workout && @workout.user_id == current_user.id
-      erb :"/workouts/show"
-    else
-      redirect to :"/workouts"
-    end
+    workout_validation
 
-
+    erb :"/workouts/show"
   end
 
   get '/workouts/:id/edit' do
     logged_in_redirect_check
     @workout = Workout.find_by_id(params[:id])
 
-    if !@workout.nil? && @workout && current_user.id == @workout.user_id
+    #check to see if workout exists and belong to current user
+    workout_validation
 
-      #set instance variables for user exercises, ordering by body_part for display on view page
-      @exercises = Exercise.order(:body_part).find_all{|exercise| exercise.user_id == current_user.id && !@workout.exercises.include?(exercise) }
+    #set instance variables for user exercises, ordering by body_part for display on view page
+    @exercises = Exercise.order(:body_part).find_all{|exercise| exercise.user_id == current_user.id && !@workout.exercises.include?(exercise) }
 
-      #set tag values for img tag, body_part and weight_type for display on page via attr accessor attributes so as to not persist to db
-      exercise_img_label_tagger
+    #set tag values for img tag, body_part and weight_type for display on page via attr accessor attributes so as to not persist to db
+    exercise_img_label_tagger
 
-      erb :"/workouts/edit"
-    else
-      redirect to :"/workouts"
-    end
+    erb :"/workouts/edit"
   end
 
   patch '/workouts/:id' do

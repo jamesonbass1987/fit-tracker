@@ -6,4 +6,10 @@ module WorkoutHelpers
       @workout_id ||= 'null'
     end
 
+    def workout_validation
+      if !@workout || @workout.user_id != current_user.id
+        redirect to :"/workouts"
+      end
+    end
+
 end
