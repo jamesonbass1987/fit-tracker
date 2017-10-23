@@ -68,29 +68,7 @@ class WorkoutsController < ApplicationController
       @exercises = Exercise.order(:body_part).find_all{|exercise| exercise.user_id == current_user.id && !@workout.exercises.include?(exercise) }
 
       #set tag values for img tag, body_part and weight_type for display on page via attr accessor attributes so as to not persist to db
-      @exercises.each do |exercise|
-        case exercise.body_part
-        when "Legs"
-          exercise.body_part_tag = "label-primary"
-          exercise.img_tag = "/images/weightlifting-icon-legs.png"
-        when "Chest"
-          exercise.body_part_tag = "label-success"
-          exercise.img_tag = "/images/weightlifting-icon-chest.png"
-        when "Shoulders"
-          exercise.body_part_tag = "label-info"
-          exercise.img_tag = "/images/weightlifting-icon-shoulders.png"
-        when "Arms"
-          exercise.body_part_tag = "label-warning"
-          exercise.img_tag = "/images/weightlifting-icon-arms.png"
-        when "Back"
-          exercise.body_part_tag = "label-danger"
-          exercise.img_tag = "/images/weightlifting-icon-legs.png"
-        else
-          exercise.body_part_tag = "label-default"
-          exercise.img_tag = "/images/weightlifting-icon-abs.png"
-        end
-
-      end
+      exercise_img_label_tagger
 
       erb :"/workouts/edit"
     else
@@ -104,10 +82,7 @@ class WorkoutsController < ApplicationController
     workout = Workout.find_by_id(params[:id])
 
     #update name and description sections with any changes (if submitted via edit form)
-    if !params[:name].nil? && !params[:description].nil?
-      workout.name = params[:name]
-      workout.description = params[:description]
-    end
+    workout.update(name: params[:name], description: params[:description])
 
     #iterate through newly added exercises, adding them to workout
     if !!params[:exercise] && params[:exercise].include?(:id)
