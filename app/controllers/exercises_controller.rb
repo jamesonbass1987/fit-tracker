@@ -80,11 +80,7 @@ class ExercisesController < ApplicationController
     @user_exercises = Exercise.all.find_all{ |exercise| exercise.user_id == current_user.id}
 
     #update parameters if any have changed
-    if @exercise.name != params[:name] || @exercise.body_part != params[:body_part] || @exercise.weight_type != params[:weight_type]
-      exercise_edits.name = params[:name]
-      exercise_edits.body_part = params[:body_part]
-      exercise_edits.weight_type = params[:weight_type]
-    end
+    @exercise.update(name: params[:name], body_part: params[:body_part], weight_type: params[:weight_type])
 
     #check to see if any exercises currently exist with the same name belonging to the current user
     @duplicate_exercise = @user_exercises.find{|exercise| exercise.name == exercise_edits.name && exercise.body_part == exercise_edits.body_part && exercise.weight_type == exercise_edits.weight_type && exercise.id != params[:id].to_i}

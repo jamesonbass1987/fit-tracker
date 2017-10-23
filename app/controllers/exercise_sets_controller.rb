@@ -95,9 +95,7 @@ class ExerciseSetsController < ApplicationController
     #update sets based on new weight and rep params
     set_num = 1
     @sets.each do |set|
-      set.weight = params[:exercise_set][:"#{set_num}"][:weight]
-      set.reps = params[:exercise_set][:"#{set_num}"][:reps]
-      set.save
+      set.update(weight: params[:exercise_set][:"#{set_num}"][:weight], reps: params[:exercise_set][:"#{set_num}"][:reps])
       set_num += 1
     end
 
