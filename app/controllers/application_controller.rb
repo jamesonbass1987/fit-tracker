@@ -4,6 +4,7 @@ class ApplicationController < Sinatra::Base
   include LoginHelpers
   include ExerciseHelpers
   include WorkoutHelpers
+  include ExerciseSetHelpers
 
   configure do
     set :public_folder, 'public'

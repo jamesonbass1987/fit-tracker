@@ -4,9 +4,7 @@ class ExerciseSetsController < ApplicationController
     logged_in_redirect_check
 
     #set variables for user, exercise and sets
-    @user = current_user
-    @exercise = Exercise.find_by_id(params[:exercise_id])
-    @sets = @exercise.exercise_sets
+    set_user_exercise_set_vars
     @set_num = 0
 
     #parse url to retrieve workout id to redirect user to after editing set
@@ -23,9 +21,7 @@ class ExerciseSetsController < ApplicationController
     logged_in_redirect_check
 
     #set variables for user, exercise and sets
-    @user = current_user
-    @exercise = Exercise.find_by_id(params[:exercise_id])
-    @sets = @exercise.exercise_sets
+    set_user_exercise_set_vars
     @set_num = 0
 
     #parse url to retrieve workout id to redirect user to after editing set
@@ -60,9 +56,7 @@ class ExerciseSetsController < ApplicationController
     logged_in_redirect_check
 
     #set variables for user, exercise and sets
-    @user = current_user
-    @exercise = Exercise.find_by_id(params[:exercise_id])
-    @sets = @exercise.exercise_sets
+    set_user_exercise_set_vars
     @set_num = 0
 
     #parse url to retrieve workout id to redirect user to after editing set
@@ -81,9 +75,7 @@ class ExerciseSetsController < ApplicationController
   patch '/exercises/:exercise_id/sets' do
 
     #set variables for user, exercise, and sets
-    @user = current_user
-    @exercise = Exercise.find_by_id(params[:exercise_id])
-    @sets = @exercise.exercise_sets
+    set_user_exercise_set_vars
 
     #parse url to retrieve workout id to redirect user to after editing set
     workout_id_parser
@@ -105,20 +97,18 @@ class ExerciseSetsController < ApplicationController
   delete '/exercises/:exercise_id/sets/delete' do
 
     #set variables for user, exercise, and sets, and set to delete
-    user = current_user
-    exercise = Exercise.find_by_id(params[:exercise_id])
-    sets = exercise.exercise_sets
+    set_user_exercise_set_vars
 
     #parse url to retrieve workout id to redirect user to after editing set
     workout_id_parser
 
     #find array value of set to delete
-    delete_set = sets[params[:set_num].to_i - 1]
+    delete_set = @sets[params[:set_num].to_i - 1]
 
     #validate current user is creator of exercise
     delete_set.destroy
 
-    redirect to "/exercises/#{exercise.id}/sets/edit?workout_id=#{@workout_id}"
+    redirect to "/exercises/#{@exercise.id}/sets/edit?workout_id=#{@workout_id}"
   end
 
 
