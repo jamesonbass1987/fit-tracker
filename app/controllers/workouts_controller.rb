@@ -2,7 +2,6 @@ class WorkoutsController < ApplicationController
 
   get '/workouts' do
     logged_in_redirect_check
-    @user = current_user
 
     erb :"/workouts/index"
   end
@@ -103,7 +102,7 @@ class WorkoutsController < ApplicationController
     workout = Workout.find_by_id(params[:id])
 
     #validate current user is owner of workout and logged in
-    if current_user.id == workout.user_id && logged_in?
+    if logged_in? && workout.user_id == current_user.id
       workout.destroy
     end
 

@@ -2,9 +2,9 @@
   <h2><strong>Your Workouts:</strong></h2>
   <br>
   <div class="">
-    <% if @user.workouts.count > 0 %>
+    <% if current_user.workouts.count > 0 %>
       <ol>
-        <% @user.workouts.each do |workout| %>
+        <% current_user.workouts.each do |workout| %>
         <li style="line-height: 90%">
           <p style="font-size: 110%"><strong>Workout:&nbsp;</strong><%= workout.name %></p>
           <p style="font-size: 110%"><strong >Description:&nbsp;</strong><%= workout.description %></p><br>

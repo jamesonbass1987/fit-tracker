@@ -1,8 +1,8 @@
 <div class="container">
 
-<% if @login_error%>
+<% if @errors%>
   <div class="alert alert-danger">
-    <strong>Oops! We hit a snag trying to log you in. Please check your credentials and try again. </strong>
+    <strong><%= @errors %></strong>
   </div>
 <% end %>
 

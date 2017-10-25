@@ -21,7 +21,6 @@ class ExercisesController < ApplicationController
   post '/exercises' do
     #create instance variable from submitted information
     @exercise = Exercise.new(:name => params[:name], :body_part => params[:body_part], :weight_type => params[:weight_type])
-    @user = current_user
     @user_exercises = Exercise.all.find_all{ |exercise| exercise.user_id == current_user.id}
 
     #search current list of user exercises for perfect duplicates. if so, reload page with error
@@ -29,7 +28,7 @@ class ExercisesController < ApplicationController
 
     if !@duplicate_exercise
       #associate created exercise to user
-      @user.exercises << @exercise
+      current_user.exercises << @exercise
 
       #save exercise instance to DB
       @exercise.save

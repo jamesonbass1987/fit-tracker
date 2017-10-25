@@ -4,7 +4,8 @@ class ExerciseSetsController < ApplicationController
     logged_in_redirect_check
 
     #set variables for user, exercise and sets
-    set_user_exercise_set_vars
+    @exercise = Exercise.find_by_id(params[:exercise_id])
+    @sets = @exercise.exercise_sets
     @set_num = 0
 
     #parse url to retrieve workout id to redirect user to after editing set
@@ -21,7 +22,8 @@ class ExerciseSetsController < ApplicationController
     logged_in_redirect_check
 
     #set variables for user, exercise and sets
-    set_user_exercise_set_vars
+    @exercise = Exercise.find_by_id(params[:exercise_id])
+    @sets = @exercise.exercise_sets
     @set_num = 0
 
     #parse url to retrieve workout id to redirect user to after editing set
@@ -42,7 +44,6 @@ class ExerciseSetsController < ApplicationController
     workout_id_parser
 
     #set variables for user & exercise
-    @user = current_user
     @exercise = Exercise.find_by_id(params[:exercise_id])
 
     #assign set to exercise
@@ -56,7 +57,8 @@ class ExerciseSetsController < ApplicationController
     logged_in_redirect_check
 
     #set variables for user, exercise and sets
-    set_user_exercise_set_vars
+    @exercise = Exercise.find_by_id(params[:exercise_id])
+    @sets = @exercise.exercise_sets
     @set_num = 0
 
     #parse url to retrieve workout id to redirect user to after editing set
@@ -75,7 +77,8 @@ class ExerciseSetsController < ApplicationController
   patch '/exercises/:exercise_id/sets' do
 
     #set variables for user, exercise, and sets
-    set_user_exercise_set_vars
+    @exercise = Exercise.find_by_id(params[:exercise_id])
+    @sets = @exercise.exercise_sets
 
     #parse url to retrieve workout id to redirect user to after editing set
     workout_id_parser
@@ -97,7 +100,8 @@ class ExerciseSetsController < ApplicationController
   delete '/exercises/:exercise_id/sets/delete' do
 
     #set variables for user, exercise, and sets, and set to delete
-    set_user_exercise_set_vars
+    @exercise = Exercise.find_by_id(params[:exercise_id])
+    @sets = @exercise.exercise_sets
 
     #parse url to retrieve workout id to redirect user to after editing set
     workout_id_parser

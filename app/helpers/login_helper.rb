@@ -1,11 +1,11 @@
 module LoginHelpers
 
     def logged_in?
-      !!session[:id]
+      !!current_user
     end
 
     def current_user #=> User Instance || nil
-      @current_user ||= User.find_by_id(session[:id])
+      @current_user ||= User.find_by_id(session[:user_id])
     end
 
     def nil_submission?
