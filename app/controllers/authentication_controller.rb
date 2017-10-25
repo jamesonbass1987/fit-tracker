@@ -11,25 +11,27 @@ class AuthenticationController < ApplicationController
 
   post '/signup' do
 
-    #check for any existing users that match that username or email
-    if user_exists?
-      @signup_duplication_error = true
-      erb :"/users/signup"
-    #create user if all conditions are met
-    else
-      user = User.create(:username => params["username"], :first_name => params["first_name"], :last_name => params["last_name"], :email => params["email"], :password => params["password"])
-      session[:id] = user.id
+    # #check for any existing users that match that username or email
+    # if user_exists?
+    #   @signup_duplication_error = true
+    #   erb :"/users/signup"
+    # #create user if all conditions are met
+    # else
+      user = User.new(:username => params["username"], :first_name => params["first_name"], :last_name => params["last_name"], :email => params["email"], :password => params["password"])
+      if user.save
+        session[:user_id] = user.id
 
-      #Load all stock exercises into user account
-      exercises = Exercise.all.select{|exercise| exercise.user_id == nil}
-      exercises.each do |exercise|
-        exercise_copy = exercise.dup
-        exercise_copy.save
-        user.exercises << exercise_copy
+        #Load all stock exercises into user account
+        exercises = Exercise.where(user_id: nil)
+        exercises.each { |exercise| user.exercises << exercise.dup }
+        user.save
+
+        redirect to "/users/#{user.username}"
+      else
+        @errors = user.errors.full_messages.join(', ')
+        erb :"/users/signup"
       end
-
-      redirect to "/users/#{user.username}"
-    end
+    #end
   end
 
   get '/login' do
@@ -47,7 +49,7 @@ class AuthenticationController < ApplicationController
 
     if user && user.authenticate(params[:password])
       #set session id to user id
-      session[:id] = user.id
+      session[:user_id] = user.id
       redirect to "/users/#{user.username}"
     else
       #set login error message, and reload login page

@@ -48,9 +48,10 @@
             </form>
           </tr>
       </table>
-      <p><button type="submit" form="editForm" name=""class="btn btn-primary">Save</button>&nbsp;&nbsp;&nbsp;(<strong>Hint:</strong> If you are adding a new set, click the "Add" button prior to saving.)</p>
+      <p><button type="submit" form="editForm" name=""class="btn btn-primary">Save</button>&nbsp;&nbsp;&nbsp;
       <% if @workout_id && @workout_id != 'null' %>
         <button type="submit" form="removeForm" class="btn btn-warning" name="[exercise][current_exercises][]" value="<%= @exercise.id %>">Remove From Workout</button>
       <% end %>
+      <p><strong>Hint:</strong> If you are adding a new set, click the "Add" button prior to saving.</p>
   </div>
 </div>

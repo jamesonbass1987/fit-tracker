@@ -1,7 +1,7 @@
 module ExerciseHelpers
 
     def exercise_validation
-      if !@exercise || current_user.id != @exercise.user_id
+      if !@exercise || current_user != @exercise.user
         redirect to '/exercises'
       end
     end

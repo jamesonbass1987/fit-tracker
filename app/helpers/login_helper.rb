@@ -4,8 +4,8 @@ module LoginHelpers
       !!session[:id]
     end
 
-    def current_user
-      User.find_by_id(session[:id])
+    def current_user #=> User Instance || nil
+      @current_user ||= User.find_by_id(session[:id])
     end
 
     def nil_submission?
