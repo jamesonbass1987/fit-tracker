@@ -1,10 +1,21 @@
 development:
-  adapter: "sqlite3",
-  database: "db/db.sqlite3"
+  adapter: sqlite3
+  database: db/development.sqlite
+  host: localhost
+  pool: 5
+  timeout: 5000
 
 test:
-  adapter: "sqlite3",
-  database: "db/db.sqlite3"
+  adapter: sqlite3
+  database: db/test.sqlite
+  host: localhost
+  pool: 5
+  timeout: 5000
 
 production:
-  database: ENV['DATABASE_URL']
+  url: <%= ENV['DATABASE_URL'] %>
+  adapter: postgresql
+  database: fit_tracker_production
+  host: localhost
+  pool: 5
+  timeout: 5000
