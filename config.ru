@@ -11,3 +11,4 @@ use UsersController
 use WorkoutsController
 use ExerciseSetsController
 run ApplicationController
+
