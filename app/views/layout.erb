@@ -4,64 +4,72 @@
   <title>FitTracker</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap_override.css">
 </head>
 <body>
-  <nav class="navbar navbar-default" style="margin-bottom: 0px">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">FitTracker</a>
-    </div>
-    <% if logged_in? %>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li><a href="/users/<%= current_user.username %>">Home</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Workouts<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/workouts">My Workouts</a></li>
-            <li><a href="/workouts/new">Create Workout</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Exercises<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/exercises">My Exercises</a></li>
-            <li><a href="/exercises/new">Create Exercise</a></li>
-          </ul>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/logout">Logged in as <%= current_user.username %>  <span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
-      </ul>
-    </div>
-    <% else %>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-    </ul>
-    <% end %>
-  </div>
-</nav>
-<%= yield %>
-<footer class="footer">
-  <br>
-  <div id="main" class="container clear-top" style="float:left">
-    &copy; FitTracker 2017
-  </div>
-</footer>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark"  style="margin-bottom: 30px;">
+    <a class="navbar-brand" href="/">FitTracker</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <% if logged_in? %>
+
+      <ul class="navbar-nav nav mr-auto">
+        <li class="nav-item active">
+          <a class='nav-link' href="/users/<%= current_user.username %>">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Workouts
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/workouts">My Workouts</a>
+            <a class="dropdown-item" href="/workouts/new">Create Workout</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Exercises
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/exercises">My Exercises</a>
+            <a class="dropdown-item" href="/exercises/new">Create Exercise</a>
+          </div>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="/logout">Logged in as <%= current_user.username %>  <span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+      </ul>
+      
+      <% else %>
+      
+      <ul class="nav navbar-nav ml-auto">
+        <li class=''><a class='nav-link' href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li class=''><a class='nav-link' href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+
+      <% end %>
+    </div>
+  </nav>
+
+  <div class="container main-container" >
+      <%= yield %>
+  </div>
+
+  <footer class="footer">
+    <div class="container-fluid">
+      <span class="text-muted">&copy; FitTracker 2017</span>
+    </div>
+  </footer>
+
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </body>
 </html>
