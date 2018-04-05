@@ -1,28 +1,24 @@
 
 <div class="container">
+  <h1><strong>Welcome <%= current_user.first_name %>!</strong></h1>
 
-  <div class="col-lg-12">
-    <h1><strong>Welcome <%= current_user.first_name %>!</strong></h1>
+  <div class="row user-main">
+
+      <div class="col-lg-1"></div>
+      <div class="col-lg-4 panel panel-default center-block">
+        <a href="/workouts">
+          <img src="/images/dumbbell-variant-outline.png" class="img-fluid center-block">
+          <p class="text-center"><strong>View Workouts</strong></p><br>
+        </a>
+      </div>
+            <div class="col-lg-2"></div>
+      <div class="col-lg-4 panel panel-default center-block">
+        <a href="/exercises">
+          <img src="/images/weightlifting-icon-abs.png" class="img-fluid center-block">
+          <p class="text-center"><strong>Find Exercises</strong></p><br>
+        </a>
+      </div>
+      <div class="col-lg-1"></div>
+
   </div>
-
-
-  <div class="col-lg-12 row">
-    <br><br>
-    <div class="col-sm-1"></div>
-    <div class="col-sm-5 panel panel-default center-block" style="display: inline-block;">
-      <a href="/workouts">
-        <img src="/images/dumbbell-variant-outline.png" class="img-responsive center-block" style="width:50%;" width="255" height="255">
-        <p class="text-center"><strong>View Workouts</strong></p><br>
-      </a>
-    </div>
-
-    <div class="col-sm-5 panel panel-default center-block" style="display: inline-block;">
-      <a href="/exercises">
-        <img src="/images/weightlifting-icon-abs.png" class="img-responsive center-block" style="width:50%;" width="255" height="255">
-        <p class="text-center"><strong>Find Exercises</strong></p><br>
-      </a>
-    </div>
-    <div class="col-sm-1"></div>
-  </div>
-
 </div>
