@@ -11,7 +11,7 @@ gem 'shotgun'
 gem 'pry'
 gem 'bcrypt'
 gem "tux"
-gem 'pg'
+gem 'pg', '~> 0.18'
 
 group :development do
   gem 'sqlite3'
