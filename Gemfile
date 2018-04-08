@@ -11,11 +11,14 @@ gem 'shotgun'
 gem 'pry'
 gem 'bcrypt'
 gem "tux"
-gem 'pg', '~> 0.21'
 gem 'sprockets'
 
 group :development do
-  gem 'sqlite3'
+  gem 'pg', '~> 0.21'
+end
+
+group :production do
+  gem 'pg', '~> 0.21'
 end
 
 
